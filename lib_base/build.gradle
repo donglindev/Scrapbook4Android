@@ -1,11 +1,8 @@
 plugins {
-    id 'com.android.application'
+    id 'com.android.library'
     id 'kotlin-android'
-    id 'kotlin-kapt'
-    id 'kotlin-android-extensions'
 }
 
-def appId = rootProject.ext.appId
 def rootAndroid = rootProject.ext.android
 def support = rootProject.ext.dependencies
 
@@ -14,18 +11,13 @@ android {
     buildToolsVersion rootAndroid.buildToolsVersion
 
     defaultConfig {
-        applicationId appId.app
         minSdkVersion rootAndroid.minSdkVersion
         targetSdkVersion rootAndroid.targetSdkVersion
         versionCode rootAndroid.versionCode
         versionName rootAndroid.versionName
 
-        ndk {
-            //设置支持的SO库架构
-            abiFilters "armeabi-v7a", "arm64-v8a", "x86"
-        }
-
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
     }
     dataBinding {
         enabled = true
@@ -43,13 +35,6 @@ android {
     }
     kotlinOptions {
         jvmTarget = '1.8'
-    }
-}
-
-kapt {
-    useBuildCache = true
-    javacOptions {
-        option("-Xmaxerrs", 500)
     }
 }
 

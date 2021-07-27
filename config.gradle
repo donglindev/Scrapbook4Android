@@ -14,6 +14,7 @@ ext {
 
     // update by 2021/07/27
     material_version            = '1.4.0'
+    multidex_version            = '2.0.1'
     okhttp_version              = '3.14.9'
     okio_version                = '2.10.0'
     retrofit_version            = '2.9.0'
@@ -31,6 +32,7 @@ ext {
         "kotlin"                     : "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version",
         "ktx-core"                   : "androidx.core:core-ktx:1.6.0",
         "material"                   : "com.google.android.material:material:$material_version",
+        "multidex"                   : "androidx.multidex:multidex:$multidex_version",
         "constraintlayout"           : "androidx.constraintlayout:constraintlayout:$constraintlayout_versoin",
         "recyclerview"               : "androidx.recyclerview:recyclerview:$recyclerview_version",
         "recycler-margin"            : "com.github.thekhaeng:recycler-margin:$recyclermargin_version",

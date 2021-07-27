@@ -1,2 +1,3 @@
 rootProject.name = "Scrapbook4Android"
 include ':app'
+include ':lib_base'
