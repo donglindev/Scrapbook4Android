@@ -1,0 +1,57 @@
+ext {
+    android = [
+        compileSdkVersion: 30,
+        buildToolsVersion: "30.0.3",
+        minSdkVersion    : 21,
+        targetSdkVersion : 30,
+        versionCode      : 1,
+        versionName      : "1.0",
+    ]
+
+    appId = [
+        "app": "com.mb.scrapbook.app",
+    ]
+
+    // update by 2021/07/27
+    material_version            = '1.4.0'
+    okhttp_version              = '3.14.9'
+    okio_version                = '2.10.0'
+    retrofit_version            = '2.9.0'
+    lifecycle_version           = '2.2.0'
+    constraintlayout_versoin    = '2.0.4'
+    recyclerview_version        = '1.2.1'
+    recyclermargin_version      = '1.2.1'
+    recycleradapter_version     = '3.0.4'
+    smartreference_version      = '1.1.0'
+    glide_version               = '4.12.0'
+    utilcodex_version           = '1.30.6'
+
+    dependencies = [
+        "appcompat"                  : "androidx.appcompat:appcompat:1.3.1",
+        "kotlin"                     : "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version",
+        "ktx-core"                   : "androidx.core:core-ktx:1.6.0",
+        "material"                   : "com.google.android.material:material:$material_version",
+        "constraintlayout"           : "androidx.constraintlayout:constraintlayout:$constraintlayout_versoin",
+        "recyclerview"               : "androidx.recyclerview:recyclerview:$recyclerview_version",
+        "recycler-margin"            : "com.github.thekhaeng:recycler-margin:$recyclermargin_version",
+        "recycler-adapter"           : "com.github.CymChad:BaseRecyclerViewAdapterHelper:$recycleradapter_version",
+        "smart-reference"            : "com.scwang.smartrefresh:SmartRefreshLayout:$smartreference_version",
+        "glide"                      : "com.github.bumptech.glide:glide:$glide_version",
+        "glide-compiler"             : "com.github.bumptech.glide:compiler:$glide_version",
+        "utilcodex"                  : "com.blankj:utilcodex:$utilcodex_version",
+        "retrofit"                   : "com.squareup.retrofit2:retrofit:$retrofit_version",
+        "retrofit-converter-gson"    : "com.squareup.retrofit2:converter-gson:${retrofit_version}",
+        "okhttp3"                    : "com.squareup.okhttp3:okhttp:${okhttp_version}",
+        "okhttp3-logging-interceptor": "com.squareup.okhttp3:logging-interceptor:${okhttp_version}",
+        "lifecycle"                  : "androidx.lifecycle:lifecycle-extensions:$lifecycle_version",
+        "lifecycle-viewmodel"        : "androidx.lifecycle:lifecycle-viewmodel:$lifecycle_version",
+        "lifecycler-livedata"        : "androidx.lifecycle:lifecycle-livedata:$lifecycle_version",
+        "lifecycle-viewmodel-ktx"    : "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version",
+        "lifecycle-runtime-ktx"      : "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycle_version",
+        "lifecycle-livedata-ktx"     : "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version",
+    ]
+
+    processor = [
+        "lifecycle"     : "androidx.lifecycle:lifecycle-compiler:$lifecycle_version",
+    ]
+}
