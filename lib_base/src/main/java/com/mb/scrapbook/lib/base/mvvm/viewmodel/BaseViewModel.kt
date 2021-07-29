@@ -24,7 +24,7 @@ open class BaseViewModel<T: BaseRepository>: ViewModel() {
     /**
      * 通过反射创建对应的repository对象
      */
-    val repository: T? by lazy {
+    val repository: T by lazy {
         (Util.getClass<T>(this))
             .getDeclaredConstructor(MutableLiveData::class.java)
             .newInstance(state);

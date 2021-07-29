@@ -1,8 +1,6 @@
 plugins {
-    id 'com.android.application'
+    id 'com.android.library'
     id 'kotlin-android'
-    id 'kotlin-kapt'
-    id 'kotlin-android-extensions'
 }
 
 def appId = rootProject.ext.appId
@@ -14,7 +12,7 @@ android {
     buildToolsVersion rootAndroid.buildToolsVersion
 
     defaultConfig {
-        applicationId appId.app
+        // applicationId appId.app
         minSdkVersion rootAndroid.minSdkVersion
         targetSdkVersion rootAndroid.targetSdkVersion
         versionCode rootAndroid.versionCode
@@ -26,9 +24,6 @@ android {
         }
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-    }
-    dataBinding {
-        enabled = true
     }
 
     buildTypes {
@@ -46,20 +41,12 @@ android {
     }
 }
 
-kapt {
-    useBuildCache = true
-    javacOptions {
-        option("-Xmaxerrs", 500)
-    }
-}
-
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation project(':lib_base')
-    implementation project(':lib_stock')
 
-    implementation support.appcompat
-    support.each { k, v -> implementation v }
+    compileOnly support.appcompat
+    support.each { k, v -> compileOnly v }
 
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'

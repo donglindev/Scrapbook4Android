@@ -7,4 +7,4 @@ package com.mb.scrapbook.lib.base.mvvm.repository
  * @author DongLin
  * @date 2021/07/28
  */
-open class BaseRepository
+open class BaseRepository()

@@ -1,10 +1,12 @@
 package com.mb.scrapbook.lib.base.network
 
+import com.mb.scrapbook.lib.base.network.converter.HtmlConverterFactory
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.converter.scalars.ScalarsConverterFactory
 import java.util.concurrent.TimeUnit
 
 /**
@@ -22,11 +24,15 @@ class RetrofitFactory private constructor() {
 
     private lateinit var retrofit : Retrofit
 
+    /**
+     * 通过动态代理创建接口请求对象
+     */
     fun <T> create(baseUrl: String, clazz: Class<T>) : T {
         retrofit = Retrofit.Builder()
-                .addConverterFactory(GsonConverterFactory.create())
+                .baseUrl(baseUrl)
                 .client(initOkHttpClient())
-            .build();
+                .addConverterFactory(HtmlConverterFactory.create())
+                .build();
         return retrofit.create(clazz)
     }
 

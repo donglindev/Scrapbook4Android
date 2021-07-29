@@ -40,8 +40,8 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation support.appcompat
 
+    implementation support.appcompat
     support.each { k, v -> implementation v }
 
     testImplementation 'junit:junit:4.+'

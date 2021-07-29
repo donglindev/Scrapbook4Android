@@ -8,4 +8,4 @@ import androidx.annotation.StringRes
  * @author DongLin
  * @date 2021/07/28
  */
-data class State(val state: StateEnum, val message: String, @StringRes val tip: Int?)
+data class State(val state: StateEnum, var message: String = "", @StringRes var tip: Int = 0)
