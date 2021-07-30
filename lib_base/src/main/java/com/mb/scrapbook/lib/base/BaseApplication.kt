@@ -1,8 +1,11 @@
 package com.mb.scrapbook.lib.base
 
+import android.app.Activity
 import android.content.Context
+import android.os.Bundle
 import androidx.multidex.MultiDex
 import androidx.multidex.MultiDexApplication
+import com.mb.scrapbook.lib.base.common.AppManager
 
 /**
  * Base Application
@@ -14,6 +17,7 @@ import androidx.multidex.MultiDexApplication
 open class BaseApplication: MultiDexApplication() {
 
     companion object {
+        // 相当于全局Context对象
         lateinit var instance: BaseApplication
     }
 
@@ -24,6 +28,30 @@ open class BaseApplication: MultiDexApplication() {
 
     override fun onCreate() {
         super.onCreate()
-        instance = this;
+        instance = this
+
+        // 注册ActivityLifecycleCallback监听
+        registerActivityLifecycleCallbacks(ActivityLifecycleImpl())
+    }
+
+    private class ActivityLifecycleImpl: ActivityLifecycleCallbacks {
+        override fun onActivityCreated(activity: Activity,
+                                       savedInstanceState: Bundle?) {
+            AppManager.instance.addActivity(activity)
+        }
+
+        override fun onActivityDestroyed(activity: Activity) {
+            AppManager.instance.delActivity(activity)
+        }
+
+        override fun onActivityStarted(activity: Activity) { }
+
+        override fun onActivityResumed(activity: Activity) { }
+
+        override fun onActivityPaused(activity: Activity) { }
+
+        override fun onActivityStopped(activity: Activity) { }
+
+        override fun onActivitySaveInstanceState(activity: Activity, outState: Bundle) { }
     }
 }
