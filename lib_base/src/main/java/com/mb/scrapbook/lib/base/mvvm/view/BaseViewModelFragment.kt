@@ -5,12 +5,12 @@ import com.mb.scrapbook.lib.base.mvvm.viewmodel.BaseViewModel
 import com.mb.scrapbook.lib.base.utils.Util
 
 /**
- * Base ViewModel Activity
+ * Base ViewModel Fragment
  *
  * @author DongLin
  * @date 2021/07/29
  */
-abstract class BaseViewModelActivity<VM: BaseViewModel<*>>: BaseActivity() {
+abstract class BaseViewModelFragment<VM: BaseViewModel<*>>: BaseFragment() {
 
     protected lateinit var mViewModel: VM
 
