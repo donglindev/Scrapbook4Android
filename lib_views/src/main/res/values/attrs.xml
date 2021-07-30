@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 距离指示器样式 -->
+    <declare-styleable name="DistanceIndicatorStyle">
+        <attr name="self_width" format="dimension" />
+        <attr name="self_height" format="dimension" />
+        <attr name="self_bg_color" format="color" />
+        <attr name="ind_width" format="dimension" />
+        <attr name="ind_height" format="dimension" />
+        <attr name="ind_bg_color" format="color" />
+        <attr name="layout_center" format="boolean" />
+    </declare-styleable>
+</resources>

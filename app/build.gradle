@@ -57,6 +57,7 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation project(':lib_base')
     implementation project(':lib_stock')
+    implementation project(':lib_views')
 
     implementation support.appcompat
     support.each { k, v -> implementation v }
