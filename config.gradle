@@ -13,19 +13,22 @@ ext {
     ]
 
     // update by 2021/07/27
-    material_version            = '1.4.0'
-    multidex_version            = '2.0.1'
-    okhttp_version              = '3.14.9'
-    okio_version                = '2.10.0'
-    retrofit_version            = '2.9.0'
-    lifecycle_version           = '2.2.0'
-    constraintlayout_versoin    = '2.0.4'
-    recyclerview_version        = '1.2.1'
-    recyclermargin_version      = '1.2.1'
-    recycleradapter_version     = '3.0.6'
-    smartreference_version      = '1.1.0'
-    glide_version               = '4.12.0'
-    utilcodex_version           = '1.30.6'
+    material_version                = '1.4.0'
+    multidex_version                = '2.0.1'
+    okhttp_version                  = '3.14.9'
+    okio_version                    = '2.10.0'
+    retrofit_version                = '2.9.0'
+    lifecycle_version               = '2.2.0'
+    constraintlayout_versoin        = '2.0.4'
+    recyclerview_version            = '1.2.1'
+    recyclermargin_version          = '1.2.1'
+    recycleradapter_version         = '3.0.6'
+    smartreference_version          = '1.1.0'
+    glide_version                   = '4.12.0'
+    fresco_version                  = '2.5.0'
+    glidetransformations_version    = '4.3.0'
+    gpuimage_version                = '2.1.0'
+    utilcodex_version               = '1.30.6'
 
     dependencies = [
         "appcompat"                  : "androidx.appcompat:appcompat:1.3.1",
@@ -40,6 +43,9 @@ ext {
         "smart-reference"            : "com.scwang.smartrefresh:SmartRefreshLayout:$smartreference_version",
         "glide"                      : "com.github.bumptech.glide:glide:$glide_version",
         "glide-compiler"             : "com.github.bumptech.glide:compiler:$glide_version",
+        "glide-transformations"      : "jp.wasabeef:glide-transformations:$glidetransformations_version",
+        "gpuimage"                   : "jp.co.cyberagent.android:gpuimage:$gpuimage_version",
+        "fresco"                     : "com.facebook.fresco:fresco:$fresco_version",
         "utilcodex"                  : "com.blankj:utilcodex:$utilcodex_version",
         "retrofit"                   : "com.squareup.retrofit2:retrofit:$retrofit_version",
         "retrofit-converter-gson"    : "com.squareup.retrofit2:converter-gson:${retrofit_version}",

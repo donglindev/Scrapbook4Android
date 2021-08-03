@@ -18,11 +18,11 @@ class MainActivity : BaseViewModelActivity<StockViewModel>() {
 
     override fun getLayoutId() = R.layout.activity_main
 
-    override fun initView() {
-        super.initView()
+    override fun onInitView() {
+        super.onInitView()
     }
 
-    override fun initData() {
+    override fun onInitData() {
     }
 
     override fun initDataObserver() {

@@ -28,8 +28,9 @@ class ExampleActivity: BaseViewModelActivity<ExampleViewModel>() {
     /**
      * 初始化布局
      */
-    override fun initView() {
-        super.initView()
+    override fun onInitView() {
+        Log.d(TAG, "init view")
+        super.onInitView()
         // 设置RecyclerView相关属性
         val mgrLinear = LinearLayoutManager(this)
         mgrLinear.orientation = LinearLayoutManager.VERTICAL
@@ -60,7 +61,7 @@ class ExampleActivity: BaseViewModelActivity<ExampleViewModel>() {
     /**
      * 初始化数据
      */
-    override fun initData() {
+    override fun onInitData() {
         // 请求首页数据
         mViewModel.loadMainList()
     }
