@@ -21,7 +21,7 @@ abstract class BaseViewModelFragment<VM: BaseViewModel<*>>: BaseFragment() {
     abstract fun initDataObserver()
 
 
-    override fun initView() {
+    override fun onInitView() {
         // 初始化ViewModel对象
         mViewModel = ViewModelProvider(this).get(Util.getClass(this))
         // 初始化LiveData对象并绑定

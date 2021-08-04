@@ -18,6 +18,7 @@ import java.util.concurrent.atomic.AtomicInteger
 class ExampleRepository(private val state: MutableLiveData<State>): BaseRepository() {
 
     companion object {
+        const val TYPE_HIDE_FRAGMENT: Int = 0x0
         const val TYPE_INDICATOR: Int = 0xA000
     }
     // 数据
@@ -59,7 +60,7 @@ class ExampleRepository(private val state: MutableLiveData<State>): BaseReposito
      */
     suspend fun reqMainList(): MutableList<ExampleItemData> {
         return withContext(Dispatchers.IO) {
-            mapData.keys.map { ExampleItemData(it.id, it.name, hasChild = true) }.toMutableList()
+            mapData.keys.map { ExampleItemData(it.id, it.name) }.toMutableList()
         }
     }
 

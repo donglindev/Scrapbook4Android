@@ -38,4 +38,27 @@ class ExampleViewModel: BaseViewModel<ExampleRepository>() {
             _mainLiveData.value = repository.reqChildList(groupType)
         }
     }
+
+
+    /**
+     * Example界面上Fragment状态LiveData
+     */
+    private var _exampleLiveData: MutableLiveData<ExampleItemData> = MutableLiveData()
+    val exampleLiveData = _exampleLiveData
+
+
+    /**
+     * 根据ExampleItemData向Fragment填充数据
+     */
+    fun displayExampleContainer(data: ExampleItemData) {
+        exampleLiveData.value = data
+    }
+
+
+    /**
+     * 隐藏Example Fragment显示RecyclerView List
+     */
+    fun displayListContainer() {
+        exampleLiveData.value = ExampleItemData(ExampleRepository.TYPE_HIDE_FRAGMENT)
+    }
 }

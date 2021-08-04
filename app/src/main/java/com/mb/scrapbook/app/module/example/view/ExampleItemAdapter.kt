@@ -28,15 +28,18 @@ class ExampleItemAdapter(data: MutableList<ExampleItemData>,
      */
     override fun convert(holder: BaseViewHolder, item: ExampleItemData) {
         holder.setText(R.id.text, item.name)
-        val image: ImageView = holder.getView(R.id.image);
         Glide.with(context)
             .load(R.drawable.ic_pic)
             .apply(RequestOptions.circleCropTransform())
-            .into(image)
+            .into(holder.getView(R.id.image))
 
         if (item.hasChild) {
             holder.itemView.setOnClickListener {
                 viewMode.loadChildList(item.type)
+            }
+        } else {
+            holder.itemView.setOnClickListener {
+                viewMode.displayExampleContainer(item)
             }
         }
     }
