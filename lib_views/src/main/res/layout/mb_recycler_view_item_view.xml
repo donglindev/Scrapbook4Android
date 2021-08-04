@@ -1,17 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<com.mb.scrapbook.lib.view.common.ViewItem
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/layoutViewItem"
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:padding="20dp"
+    android:background="@android:color/white"
     android:gravity="start|center_vertical">
 
     
     <ImageView
         android:id="@+id/image"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginEnd="20dp"
         android:contentDescription="@null"
         android:scaleType="centerCrop"
         android:src="@drawable/ic_pic" />
@@ -21,9 +24,10 @@
         android:id="@+id/text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:text="Hello View Item"
         android:textSize="16sp"
-        android:fontFamily="sans-serif-medium"
+        android:fontFamily="sans-serif"
         android:singleLine="true"
         android:textColor="@android:color/black" />
 
-</LinearLayout>
+</com.mb.scrapbook.lib.view.common.ViewItem>
