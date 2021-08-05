@@ -7,6 +7,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import com.mb.scrapbook.lib.view.R
 
+
 /**
  * RecyclerView中每一项子View
  *
@@ -27,19 +28,9 @@ class ViewItem(context: Context, set: AttributeSet) : LinearLayout(context, set)
 
 
     /**
-     * 初始化和设置子View
-     */
-    override fun onFinishInflate() {
-        super.onFinishInflate()
-
-        onInitView() // 初始化子View
-    }
-
-
-    /**
      * 初始化子View
      */
-    override fun onInitView() {
+    override fun onInitView(contract: ViewContract) {
         image = findViewById(R.id.image)
         text = findViewById(R.id.text)
     }
@@ -48,7 +39,11 @@ class ViewItem(context: Context, set: AttributeSet) : LinearLayout(context, set)
     /**
      * 子view绑定数据
      */
-    override fun <T : IViewData> onBindViewData(data: T) {
+    override fun onBindViewData(contract: ViewContract) {
+        ViewContractRepository.findViewDataContract(contract.uniqueId)?.let {
+        }
     }
+
+    override fun hasChild(): Boolean = true
 
 }
