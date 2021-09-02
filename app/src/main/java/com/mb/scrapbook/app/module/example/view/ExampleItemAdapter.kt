@@ -33,12 +33,10 @@ class ExampleItemAdapter(data: MutableList<ExampleItemData>,
             .apply(RequestOptions.circleCropTransform())
             .into(holder.getView(R.id.image))
 
-        if (item.hasChild) {
-            holder.itemView.setOnClickListener {
+        holder.itemView.setOnClickListener {
+            if (item.hasChild) {
                 viewMode.loadChildList(item.type)
-            }
-        } else {
-            holder.itemView.setOnClickListener {
+            } else {
                 viewMode.displayExampleContainer(item)
             }
         }

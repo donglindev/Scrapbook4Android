@@ -1,6 +1,7 @@
 package com.mb.scrapbook.app.module.example.repository
 
 import androidx.lifecycle.MutableLiveData
+import com.mb.scrapbook.app.module.example.lib.recyclerview.view.RecyclerViewFragment
 import com.mb.scrapbook.app.module.example.model.ExampleItemData
 import com.mb.scrapbook.lib.base.common.State
 import com.mb.scrapbook.lib.base.model.ItemKey
@@ -20,6 +21,7 @@ class ExampleRepository(private val state: MutableLiveData<State>): BaseReposito
     companion object {
         const val TYPE_HIDE_FRAGMENT: Int = 0x0
         const val TYPE_INDICATOR: Int = 0xA000
+        const val TYPE_RECYCLER_VIEW: Int = 0xB000
     }
     // 数据
     private var mapData: MutableMap<ItemKey, MutableList<ExampleItemData>>
@@ -42,11 +44,24 @@ class ExampleRepository(private val state: MutableLiveData<State>): BaseReposito
                             TYPE_INDICATOR,
                             false)
         )
+
+        /**
+         * RecyclerView项
+         */
+        var listRecyclerView: MutableList<ExampleItemData> = mutableListOf(
+            ExampleItemData((TYPE_RECYCLER_VIEW + genKey.incrementAndGet()),
+                            "水平瀑布流",
+                            TYPE_RECYCLER_VIEW,
+                            false,
+                            fragment = RecyclerViewFragment())
+        )
+
         /**
          * 全部数据
          */
         mapData = mutableMapOf(
-            Pair(ItemKey(TYPE_INDICATOR, "指示器"), listIndicator)
+            Pair(ItemKey(TYPE_INDICATOR, "指示器"), listIndicator),
+            Pair(ItemKey(TYPE_RECYCLER_VIEW, "RecyclerView"), listRecyclerView)
         )
     }
 

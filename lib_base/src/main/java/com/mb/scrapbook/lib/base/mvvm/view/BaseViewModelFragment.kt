@@ -14,7 +14,6 @@ abstract class BaseViewModelFragment<VM: BaseViewModel<*>>: BaseFragment() {
 
     protected lateinit var mViewModel: VM
 
-
     /**
      * 初始化LiveData对象并进行绑定
      */
