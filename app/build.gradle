@@ -59,7 +59,6 @@ dependencies {
     implementation project(':lib_stock')
     implementation project(':lib_views')
 
-    implementation support.appcompat
     support.each { k, v -> implementation v }
 
     testImplementation 'junit:junit:4.+'

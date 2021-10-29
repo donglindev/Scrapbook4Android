@@ -74,7 +74,7 @@ class HtmlConverterFactory private constructor(): Converter.Factory() {
         companion object {
             val MEDIA_HTML: MediaType = MediaType.get("text/html;charset=UTF-8")
 
-            fun create(): HtmlRequestBodyConverter<Object> {
+            fun create(): HtmlRequestBodyConverter<Any> {
                 return HtmlRequestBodyConverter()
             }
         }

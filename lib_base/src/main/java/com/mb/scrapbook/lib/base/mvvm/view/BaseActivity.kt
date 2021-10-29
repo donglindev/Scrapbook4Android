@@ -7,6 +7,7 @@ import com.blankj.utilcode.util.BarUtils
 
 /**
  * Base Activity
+ * 标准Activity基类
  *
  * @author DongLin
  * @date 2021/07/29
@@ -18,18 +19,15 @@ abstract class BaseActivity: AppCompatActivity() {
      */
     abstract fun getLayoutId(): Int
 
-
     /**
      * 子类实现View初始化
      */
     abstract fun onInitView()
 
-
     /**
      * 子类实现数据初始化
      */
     abstract fun onInitData()
-
 
     /**
      * 设置status bar样式

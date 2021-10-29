@@ -44,7 +44,6 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation project(':lib_base')
 
-    compileOnly support.appcompat
     support.each { k, v -> compileOnly v }
 
     testImplementation 'junit:junit:4.+'

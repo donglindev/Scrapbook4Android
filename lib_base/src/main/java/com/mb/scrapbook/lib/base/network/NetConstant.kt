@@ -20,6 +20,4 @@ object NetConstant {
 
     const val STATE_SUCCESS = 0
     const val MESSAGE_SUCCESS = "success"
-
-    const val BASE_URL_LOTTERY = "";
 }

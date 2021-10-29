@@ -1,11 +1,13 @@
 apply from: 'config.gradle'
 
 buildscript {
-    ext.kotlin_version = "1.5.20"
+    ext.kotlin_version = "1.5.30"
     repositories {
         google()
         mavenCentral()
         maven { url 'https://jitpack.io' }
+        maven { url 'https://maven.google.com' }
+        maven { url 'http://maven.aliyun.com/nexus/content/groups/public/'}
     }
     dependencies {
         classpath "com.android.tools.build:gradle:4.2.1"
@@ -18,7 +20,8 @@ allprojects {
         google()
         mavenCentral()
         maven { url 'https://jitpack.io' }
-        jcenter() // Warning: this repository is going to shut down soon
+        maven { url 'https://maven.google.com' }
+        maven { url 'http://maven.aliyun.com/nexus/content/groups/public/'}
     }
 }
 

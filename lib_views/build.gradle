@@ -41,10 +41,8 @@ android {
 }
 
 dependencies {
-
     implementation project(':lib_base')
 
-    compileOnly support.appcompat
     support.each { k, v -> compileOnly v }
 
     testImplementation 'junit:junit:4.+'
