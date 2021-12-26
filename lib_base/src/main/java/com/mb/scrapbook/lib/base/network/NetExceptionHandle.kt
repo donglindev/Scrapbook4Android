@@ -9,7 +9,7 @@ import java.net.ConnectException
 import java.net.UnknownHostException
 
 object NetExceptionHandle {
-    fun handleException(throwable: Throwable?, loadState: MutableLiveData<State>){
+    fun handleException(throwable: Throwable?, loadState: MutableLiveData<State>) {
         // val ex = Exception()
         throwable?.let {
             when (it) {
