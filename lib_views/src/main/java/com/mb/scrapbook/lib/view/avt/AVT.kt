@@ -9,6 +9,44 @@ package com.mb.scrapbook.lib.view.avt
  */
 
 /**
+ * 组件树节点属性
+ * 此类用于描述一个组件节点的样式，包括：大小、外边距、内边距、方向等
+ *
+ * @author Amit
+ * @date 2022/01/01
+ */
+open class ViewAttr(
+    // 尺寸
+    val size: Attr.Size = Attr.Size(),
+    // 外边距
+    val margin: Attr.Margin = Attr.Margin(),
+    // 内边距
+    val padding: Attr.Padding = Attr.Padding(),
+    // 内容对齐
+    val gravity: Attr.Gravity = Attr.Gravity(),
+    // 背景样式
+    val background: Attr.Background = Attr.Background(),
+    // 圆角角度
+    val corner: Attr.Corner = Attr.Corner()
+)
+
+/**
+ * 组件树节点属性
+ * 此类用于描述一个组节点的样式，组节点比组件节点多了绝对位置和方向属性
+ * 1) 绝对位置属性：浮层组件必须位于组节点中，并且绝对位置属性不可为空
+ * 2) 当方向属性值为null时，此组表示FrameLayout组件，否则表示带方向的LinearLayout组件
+ *
+ * @author Amit
+ * @date 2022/01/01
+ */
+open class ViewGroupAttr(
+    // 相对屏幕绝对位置
+    val position: Attr.Position? = null,
+    // 方向
+    val orientation: Attr.Orientation? = null
+) : ViewAttr()
+
+/**
  * 树节点
  * 此节点包含数据域和关系域两部分组成
  *
