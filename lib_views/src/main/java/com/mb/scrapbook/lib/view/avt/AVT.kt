@@ -1,5 +1,8 @@
 package com.mb.scrapbook.lib.view.avt
 
+import org.json.JSONObject
+import kotlin.reflect.KProperty
+
 /**
  * 抽象组件树顶层类
  * 此文件中声明抽象组件树需要的相关基础数据定义
@@ -27,7 +30,9 @@ open class ViewAttr(
     // 背景样式
     val background: Attr.Background = Attr.Background(),
     // 圆角角度
-    val corner: Attr.Corner = Attr.Corner()
+    val corner: Attr.Corner = Attr.Corner(),
+    // 扩展属性
+    val extends: Map<String, Any?> = HashMap()
 )
 
 /**
@@ -72,3 +77,28 @@ class ViewTreeNode<Data, Attr>(
     child: TreeNode<Data>? = null,
     sibling: TreeNode<Data>? = null
 ) : TreeNode<Data>(data, child, sibling)
+
+/**
+ * JSON属性委托类
+ * 此类将JSON字符串转换成JSONObject对象后，通过JSON文本中key作为property.name属性名，
+ * 实现从JSONObject对象中获取key对应值的委托模式；
+ *
+ * @author Amit
+ * @date 2022/01/08
+ */
+class JsonAttr(private val json: String) {
+
+    /** JSONObject被委托对象 */
+    private val attrs: JSONObject by lazy { JSONObject(json) }
+
+    /** 属性委托中必须定义的getValue方法 */
+    operator fun getValue(nothing: Nothing?, property: KProperty<*>): String? {
+        val result = attrs[property.name];
+        return result?.let { result.toString() } ?: null
+    }
+
+    /** 属性委托中必须定义的setValue方法 */
+    operator fun setValue(thisRef: Any?, property: KProperty<*>, value: String?) {
+        attrs.put(property.name, value)
+    }
+}
