@@ -27,12 +27,14 @@ sealed class Attr {
 
         /** 水平 */
         const val HORIZONTAL = LinearLayout.HORIZONTAL
+        const val STR_HORIZONTAL = "horizontal"
         /** 垂直 */
         const val VERTICAL = LinearLayout.VERTICAL
+        const val STR_VERTICAL = "vertical"
     }
 
     /**
-     * 组件大小属性
+     * 组件尺寸属性
      *
      * @param layoutWidth: match_parent | wrap_content
      * @param layoutHeight: match_parent | wrap_content
@@ -40,10 +42,10 @@ sealed class Attr {
      * @param height: 组件的高
      */
     data class Size(
-        val layoutWidth: String? = MATCH_PARENT,
-        val layoutHeight: String? = WRAP_CONTENT,
-        val width: Int = DEFAULT_INT,
-        val height: Int = DEFAULT_INT
+        var layoutWidth: String? = MATCH_PARENT,
+        var layoutHeight: String? = WRAP_CONTENT,
+        var width: Int = DEFAULT_INT,
+        var height: Int = DEFAULT_INT
     ) : Attr()
 
     /**
@@ -58,12 +60,12 @@ sealed class Attr {
      * @param bottom: 距屏幕下边距，默认0边距
      */
     data class Position(
-        val x: Int = INVALIDATE_INT,
-        val y: Int = INVALIDATE_INT,
-        val left: Int = DEFAULT_INT,
-        val top: Int = DEFAULT_INT,
-        val right: Int = DEFAULT_INT,
-        val bottom: Int = DEFAULT_INT
+        var x: Int = INVALIDATE_INT,
+        var y: Int = INVALIDATE_INT,
+        var left: Int = DEFAULT_INT,
+        var top: Int = DEFAULT_INT,
+        var right: Int = DEFAULT_INT,
+        var bottom: Int = DEFAULT_INT
     ) : Attr()
 
     /**
@@ -73,7 +75,7 @@ sealed class Attr {
      * @param orientation: 组件方向，默认使用FrameLayout组件
      */
     data class Orientation(
-        val orientation: Int? = null
+        var orientation: Int? = null
     ) : Attr()
 
     /**
@@ -85,10 +87,10 @@ sealed class Attr {
      * @param bottom: 距屏幕下边距，默认0边距
      */
     data class Margin(
-        val left: Int = DEFAULT_INT,
-        val top: Int = DEFAULT_INT,
-        val right: Int = DEFAULT_INT,
-        val bottom: Int = DEFAULT_INT
+        var left: Int = DEFAULT_INT,
+        var top: Int = DEFAULT_INT,
+        var right: Int = DEFAULT_INT,
+        var bottom: Int = DEFAULT_INT
     ) : Attr()
 
     /**
@@ -100,10 +102,10 @@ sealed class Attr {
      * @param bottom: 距屏幕下边距，默认0边距
      */
     data class Padding(
-        val left: Int = DEFAULT_INT,
-        val top: Int = DEFAULT_INT,
-        val right: Int = DEFAULT_INT,
-        val bottom: Int = DEFAULT_INT
+        var left: Int = DEFAULT_INT,
+        var top: Int = DEFAULT_INT,
+        var right: Int = DEFAULT_INT,
+        var bottom: Int = DEFAULT_INT
     ) : Attr()
 
     /**
@@ -112,7 +114,7 @@ sealed class Attr {
      * @param gravity: 通过组合方式实现内容对齐，默认左对齐
      */
     data class Gravity(
-        val gravity: String = "start"
+        var gravity: String = "start"
     ) : Attr()
 
     /**
@@ -122,8 +124,8 @@ sealed class Attr {
      * @param image: 组件背景图
      */
     data class Background(
-        val color: String? = null,
-        val image: String? = null
+        var color: String? = null,
+        var image: String? = null
     ) : Attr()
 
     /**
@@ -135,9 +137,9 @@ sealed class Attr {
      * @param rightBottom: 右下角，默认0度
      */
     data class Corner(
-        val leftTop: Int = 0,
-        val leftBottom: Int = 0,
-        val rightTop: Int = 0,
-        val rightBottom: Int = 0
+        var leftTop: Int = 0,
+        var leftBottom: Int = 0,
+        var rightTop: Int = 0,
+        var rightBottom: Int = 0
     ) : Attr()
 }

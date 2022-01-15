@@ -1,6 +1,8 @@
 package com.mb.scrapbook.lib.view.avt
 
+import org.json.JSONException
 import org.json.JSONObject
+import java.lang.StringBuilder
 import kotlin.reflect.KProperty
 
 /**
@@ -20,20 +22,26 @@ import kotlin.reflect.KProperty
  */
 open class ViewAttr(
     // 尺寸
-    val size: Attr.Size = Attr.Size(),
+    var size: Attr.Size = Attr.Size(),
     // 外边距
-    val margin: Attr.Margin = Attr.Margin(),
+    var margin: Attr.Margin = Attr.Margin(),
     // 内边距
-    val padding: Attr.Padding = Attr.Padding(),
+    var padding: Attr.Padding = Attr.Padding(),
     // 内容对齐
-    val gravity: Attr.Gravity = Attr.Gravity(),
+    var gravity: Attr.Gravity = Attr.Gravity(),
     // 背景样式
-    val background: Attr.Background = Attr.Background(),
+    var background: Attr.Background = Attr.Background(),
     // 圆角角度
-    val corner: Attr.Corner = Attr.Corner(),
+    var corner: Attr.Corner = Attr.Corner(),
     // 扩展属性
-    val extends: Map<String, Any?> = HashMap()
-)
+    var extends: Map<String, Any?> = HashMap()
+) {
+
+    override fun toString(): String = with(StringBuilder()) {
+        append("ViewAttr {\n\t\t$size,\n\t\t$margin,\n\t\t$padding,\n\t\t$gravity,\n\t\t$background,\n\t\t$corner,\n\t\tOrigin: $extends\n\t}")
+        toString()
+    }
+}
 
 /**
  * 组件树节点属性
@@ -46,10 +54,16 @@ open class ViewAttr(
  */
 open class ViewGroupAttr(
     // 相对屏幕绝对位置
-    val position: Attr.Position? = null,
+    var position: Attr.Position? = null,
     // 方向
-    val orientation: Attr.Orientation? = null
-) : ViewAttr()
+    var orientation: Attr.Orientation? = null
+) : ViewAttr() {
+
+    override fun toString(): String = with(StringBuilder()) {
+        append("ViewAttr {\n\t\t$size,\n\t\t$margin,\n\t\t$padding,\n\t\t$gravity,\n\t\t$background,\n\t\t$corner,\n\t\t$position,\n\t\t$orientation,\n\t\tOrigin: $extends\n\t}")
+        toString()
+    }
+}
 
 /**
  * 树节点
@@ -59,10 +73,15 @@ open class ViewGroupAttr(
  * @date 2021/12/26
  */
 open class TreeNode<Data>(
-    val data: Data? = null,
-    val child: TreeNode<Data>? = null,
-    val sibling: TreeNode<Data>? = null
-)
+    var data: Data? = null,
+    var child: TreeNode<Data>? = null,
+    var sibling: TreeNode<Data>? = null
+) {
+    override fun toString(): String = with(StringBuilder()) {
+        append("TreeNode { data: $data, child: $child, sibling: $sibling }")
+        toString()
+    }
+}
 
 /**
  * 组件树节点
@@ -72,11 +91,17 @@ open class TreeNode<Data>(
  * @date 2021/12/26
  */
 class ViewTreeNode<Data, Attr>(
-    val attrs: Attr? = null,
+    var attrs: Attr? = null,
     data: Data? = null,
     child: TreeNode<Data>? = null,
     sibling: TreeNode<Data>? = null
-) : TreeNode<Data>(data, child, sibling)
+) : TreeNode<Data>(data, child, sibling) {
+
+    override fun toString(): String = with(StringBuilder()) {
+        append("ViewTreeNode {\n\t${ attrs }, \n\tdata: $data, \n\tchild: $child, \n\tsibling: $sibling \n}")
+        toString()
+    }
+}
 
 /**
  * JSON属性委托类
@@ -91,14 +116,41 @@ class JsonAttr(private val json: String) {
     /** JSONObject被委托对象 */
     private val attrs: JSONObject by lazy { JSONObject(json) }
 
+    /** 排序字段，使用JSON中index值作为排序字段 */
+    val sortIndex: Int by lazy {
+        val index by this
+        index?.let { it.toInt() } ?: 0
+    }
+
+    /**
+     * 将JSON对象转换成Java中Map对象
+     */
+    fun toMap(): Map<String, Any?> = HashMap<String, Any?>().apply {
+        val copied = JSONObject(json)
+        val it = copied.keys()
+        while (it.hasNext()) {
+            it.next()?.let { k ->
+                put(k, copied[k])
+            }
+        }
+    }
+
     /** 属性委托中必须定义的getValue方法 */
     operator fun getValue(nothing: Nothing?, property: KProperty<*>): String? {
-        val result = attrs[property.name];
-        return result?.let { result.toString() } ?: null
+        try {
+            val result = attrs[property.name]
+            return result?.let { result.toString() } ?: null
+        } catch (e: JSONException) {
+        } catch (e: Exception) {
+        }
+        return null
     }
 
     /** 属性委托中必须定义的setValue方法 */
     operator fun setValue(thisRef: Any?, property: KProperty<*>, value: String?) {
-        attrs.put(property.name, value)
+        try {
+            attrs.put(property.name, value)
+        } catch (e: Exception) {
+        }
     }
 }
