@@ -10,4 +10,4 @@ import com.mb.scrapbook.lib.view.avt.ViewTreeNode
  * @author Amit
  * @date 2022/01/01
  */
-abstract class ViewTreeEngine<in Source>() : TreeEngine<Source, ViewTreeNode<Any?, ViewAttr>?>
+abstract class ViewTreeEngine<in Source>() : TreeEngine<Source, ViewTreeNode<Any?, ViewAttr?>?>

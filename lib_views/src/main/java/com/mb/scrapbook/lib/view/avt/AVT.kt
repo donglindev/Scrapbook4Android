@@ -1,9 +1,13 @@
 package com.mb.scrapbook.lib.view.avt
 
+import android.util.Log
 import org.json.JSONException
 import org.json.JSONObject
 import java.lang.StringBuilder
+import kotlin.collections.HashMap
 import kotlin.reflect.KProperty
+
+const val TAG_AVT = "AVT"
 
 /**
  * 抽象组件树顶层类
@@ -35,13 +39,7 @@ open class ViewAttr(
     var corner: Attr.Corner = Attr.Corner(),
     // 扩展属性
     var extends: Map<String, Any?> = HashMap()
-) {
-
-    override fun toString(): String = with(StringBuilder()) {
-        append("ViewAttr {\n\t\t$size,\n\t\t$margin,\n\t\t$padding,\n\t\t$gravity,\n\t\t$background,\n\t\t$corner,\n\t\tOrigin: $extends\n\t}")
-        toString()
-    }
-}
+)
 
 /**
  * 组件树节点属性
@@ -57,13 +55,7 @@ open class ViewGroupAttr(
     var position: Attr.Position? = null,
     // 方向
     var orientation: Attr.Orientation? = null
-) : ViewAttr() {
-
-    override fun toString(): String = with(StringBuilder()) {
-        append("ViewAttr {\n\t\t$size,\n\t\t$margin,\n\t\t$padding,\n\t\t$gravity,\n\t\t$background,\n\t\t$corner,\n\t\t$position,\n\t\t$orientation,\n\t\tOrigin: $extends\n\t}")
-        toString()
-    }
-}
+) : ViewAttr()
 
 /**
  * 树节点
@@ -77,9 +69,8 @@ open class TreeNode<Data>(
     var child: TreeNode<Data>? = null,
     var sibling: TreeNode<Data>? = null
 ) {
-    override fun toString(): String = with(StringBuilder()) {
-        append("TreeNode { data: $data, child: $child, sibling: $sibling }")
-        toString()
+    companion object {
+        const val space = "  "
     }
 }
 
@@ -93,14 +84,32 @@ open class TreeNode<Data>(
 class ViewTreeNode<Data, Attr>(
     var attrs: Attr? = null,
     data: Data? = null,
-    child: TreeNode<Data>? = null,
-    sibling: TreeNode<Data>? = null
+    child: ViewTreeNode<Data, Attr>? = null,
+    sibling: ViewTreeNode<Data, Attr>? = null
 ) : TreeNode<Data>(data, child, sibling) {
 
-    override fun toString(): String = with(StringBuilder()) {
-        append("ViewTreeNode {\n\t${ attrs }, \n\tdata: $data, \n\tchild: $child, \n\tsibling: $sibling \n}")
-        toString()
+    /**
+     * 前序打印抽象组件树
+     */
+    private fun preorder(deep: Int = 0, node: ViewTreeNode<Data, Attr>?) {
+        node?.let { n ->
+            val buff = StringBuilder().apply {
+                (0..deep).forEach { _ -> append(space) }
+                append("ViewTreeNode { ")
+                append(n.attrs?.run { (this as ViewAttr).size } ?: null)
+                append(" }")
+            }
+            Log.d(TAG_AVT, buff.toString())
+
+            node.child?.let { c -> preorder((deep + 1), c as ViewTreeNode<Data, Attr>) }
+            node.sibling?.let { s -> preorder(deep, s as ViewTreeNode<Data, Attr>) }
+        }
     }
+
+    /**
+     * 输出树状结构
+     */
+    override fun toString(): String = "=============================".also { preorder(node = this) }
 }
 
 /**

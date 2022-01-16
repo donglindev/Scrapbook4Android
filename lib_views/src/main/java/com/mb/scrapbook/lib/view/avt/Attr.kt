@@ -1,5 +1,6 @@
 package com.mb.scrapbook.lib.view.avt
 
+import android.view.ViewGroup
 import android.widget.LinearLayout
 
 /**
@@ -44,8 +45,8 @@ sealed class Attr {
     data class Size(
         var layoutWidth: String? = MATCH_PARENT,
         var layoutHeight: String? = WRAP_CONTENT,
-        var width: Int = DEFAULT_INT,
-        var height: Int = DEFAULT_INT
+        var width: Int = ViewGroup.LayoutParams.MATCH_PARENT,
+        var height: Int = ViewGroup.LayoutParams.WRAP_CONTENT
     ) : Attr()
 
     /**
