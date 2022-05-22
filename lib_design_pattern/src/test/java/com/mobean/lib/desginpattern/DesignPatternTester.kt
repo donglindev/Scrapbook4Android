@@ -12,6 +12,6 @@ class DesignPatternTester {
 
     @Test
     fun testDesignPattern() {
-        println("I'm design pattern tester function.");
+        println("I'm design pattern tester function.")
     }
 }
