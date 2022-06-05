@@ -18,17 +18,6 @@
         app:titleTextAppearance="?android:attr/textAppearanceLarge"
         android:background="@android:color/white" />
 
-
-    <Button
-        android:id="@+id/btnClick"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/toolBar"
-        app:layout_constraintBottom_toBottomOf="@id/toolBar"
-        android:text="Click" />
-
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvList"
         android:layout_width="match_parent"
@@ -37,9 +26,10 @@
         app:layout_constraintEnd_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:overScrollMode="never"
-        android:layout_marginStart="5dp"
-        android:layout_marginEnd="5dp" />
+        android:paddingTop="5dp"
+        android:paddingStart="5dp"
+        android:paddingEnd="5dp"
+        android:overScrollMode="never" />
 
     <FrameLayout
         android:id="@+id/layoutContainer"
