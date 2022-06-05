@@ -10,17 +10,10 @@ import com.mb.scrapbook.app.module.example.model.ExampleItemData
 import com.mb.scrapbook.app.module.example.repository.ExampleRepository
 import com.mb.scrapbook.app.module.example.viewmodel.ExampleViewModel
 import com.mb.scrapbook.lib.base.mvvm.view.BaseViewModelActivity
-import com.mb.scrapbook.lib.view.avt.engine.DolphinVTEngine
 import com.thekhaeng.recyclerviewmargin.LayoutMarginDecoration
 import kotlinx.android.synthetic.main.activity_example.*
 
 class ExampleActivity: BaseViewModelActivity<ExampleViewModel>() {
-
-    /**
-     * Example Container display status
-     */
-    private var isDisplayExampleContainer: Boolean = false
-
     /**
      * Current display fragment
      */
@@ -43,12 +36,6 @@ class ExampleActivity: BaseViewModelActivity<ExampleViewModel>() {
      */
     override fun onInitView() {
         super.onInitView()
-        btnClick.setOnClickListener {
-            val jsonContent = "{\"abTestDefault\":false,\"abTestFloor\":false,\"backgroundCorner\":0,\"expVarMap\":{},\"flexWidget\":{\"gravity\":\"\",\"layoutType\":\"vertical\",\"viewGroups\":[{\"backgroundColor\":\"#ff0000\",\"backgroundImage\":\"\",\"gravity\":\"\",\"height\":100,\"id\":\"1642056236058\",\"index\":0,\"layoutType\":\"\",\"reuse\":0,\"width\":375},{\"backgroundColor\":\"#00ff00\",\"backgroundImage\":\"\",\"gravity\":\"\",\"height\":150,\"id\":\"1642056255999\",\"index\":1,\"layoutType\":\"\",\"reuse\":0,\"width\":375},{\"backgroundColor\":\"#0000ff\",\"backgroundImage\":\"\",\"gravity\":\"\",\"height\":250,\"id\":\"1642056277287\",\"index\":2,\"layoutType\":\"\",\"reuse\":1,\"width\":375}]},\"floorId\":\"230235\",\"floorType\":\"FLEX_WIDGET\",\"height\":500,\"index\":6,\"marginBottom\":0,\"marginLeft\":0,\"marginRight\":0,\"marginTop\":0,\"paddingBottom\":0,\"paddingLeft\":0,\"paddingRight\":0,\"paddingTop\":0}"
-            val engine = DolphinVTEngine()
-            val tree = engine.makeTree(jsonContent)
-            Log.d("donglin", "${tree}")
-        }
         // 设置RecyclerView相关属性
         val mgrLinear = LinearLayoutManager(this)
         mgrLinear.orientation = LinearLayoutManager.VERTICAL
@@ -96,9 +83,11 @@ class ExampleActivity: BaseViewModelActivity<ExampleViewModel>() {
 
 
     override fun onBackPressed() {
-        if (isDisplayExampleContainer) {
-            mViewModel.displayListContainer()
-            return; // ignore
+        /**
+         * 根据ViewModel显示栈状态退出界面
+         */
+        if (mViewModel.shouldBack()) {
+            return
         }
         super.onBackPressed()
     }
@@ -108,28 +97,24 @@ class ExampleActivity: BaseViewModelActivity<ExampleViewModel>() {
      * 更新Fragment显示状态
      */
     private fun onUpdateExampleContainer(data: ExampleItemData, display: Boolean) {
-        if (isDisplayExampleContainer != display) {
-            isDisplayExampleContainer = display
-        }
-
-        supportFragmentManager?.let {
-            val transaction = it.beginTransaction()
+        supportFragmentManager?.let { mgr ->
+            val transaction = mgr.beginTransaction()
             // if 'fragmentDisplay' isn't null, then anyway remove current display fragment
-            fragmentDisplay?.let {
-                transaction.remove(fragmentDisplay!!)
-            }
+            fragmentDisplay?.let { fragment -> transaction.remove(fragment) }
 
-            if (isDisplayExampleContainer) {
+            if (display) {
                 // show list and hide fragment
                 layoutContainer.visibility = View.VISIBLE
                 rvList.visibility = View.GONE
-                data.fragment?.let {
-                    transaction.add(R.id.layoutContainer, data.fragment!!)
+                data.fragment?.let { fragment ->
+                    fragmentDisplay = fragment
+                    transaction.add(R.id.layoutContainer, fragment)
                 }
             } else {
                 // show list and hide fragment
                 layoutContainer.visibility = View.GONE
                 rvList.visibility = View.VISIBLE
+                fragmentDisplay = null
             }
             transaction.commit()
         }

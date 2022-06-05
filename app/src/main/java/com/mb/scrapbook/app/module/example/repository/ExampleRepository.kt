@@ -35,14 +35,14 @@ class ExampleRepository(private val state: MutableLiveData<State>): BaseReposito
          */
         var listIndicator: MutableList<ExampleItemData> = mutableListOf(
             ExampleItemData((TYPE_INDICATOR + genKey.incrementAndGet()),
-                            "线性指示器",
-                            TYPE_INDICATOR,
-                            false),
+                            name = "线性指示器",
+                            groupType = TYPE_INDICATOR,
+                            hasChild = false),
 
             ExampleItemData((TYPE_INDICATOR + genKey.incrementAndGet()),
-                            "线性距离指示器",
-                            TYPE_INDICATOR,
-                            false)
+                            name = "线性距离指示器",
+                            groupType = TYPE_INDICATOR,
+                            hasChild = false)
         )
 
         /**
@@ -50,9 +50,9 @@ class ExampleRepository(private val state: MutableLiveData<State>): BaseReposito
          */
         var listRecyclerView: MutableList<ExampleItemData> = mutableListOf(
             ExampleItemData((TYPE_RECYCLER_VIEW + genKey.incrementAndGet()),
-                            "水平瀑布流",
+                            name = "水平瀑布流",
                             TYPE_RECYCLER_VIEW,
-                            false,
+                            hasChild = false,
                             fragment = RecyclerViewFragment())
         )
 

@@ -1,6 +1,5 @@
 package com.mb.scrapbook.app.module.example.view
 
-import android.widget.ImageView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.chad.library.adapter.base.BaseQuickAdapter
@@ -35,7 +34,7 @@ class ExampleItemAdapter(data: MutableList<ExampleItemData>,
 
         holder.itemView.setOnClickListener {
             if (item.hasChild) {
-                viewMode.loadChildList(item.type)
+                viewMode.loadChildList(item)
             } else {
                 viewMode.displayExampleContainer(item)
             }
