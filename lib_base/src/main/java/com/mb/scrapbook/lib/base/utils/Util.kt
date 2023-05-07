@@ -11,7 +11,8 @@ import java.lang.reflect.ParameterizedType
 object Util {
 
     /**
-     * 通过反射获取父类泛型T对应的Class对象
+     * 通过反射获取类定义的泛型T对应的Class对象
+     * 此方法是Activity类ViewModel对象的通用创建过程；
      */
     fun <T> getClass(t: Any): Class<T> {
         return (t.javaClass.genericSuperclass as ParameterizedType)
