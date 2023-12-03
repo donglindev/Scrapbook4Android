@@ -1,5 +1,6 @@
 package com.mb.scrapbook.lib.base.mvvm.view
 
+import android.view.View
 import androidx.lifecycle.ViewModelProvider
 import com.mb.scrapbook.lib.base.mvvm.viewmodel.BaseViewModel
 import com.mb.scrapbook.lib.base.utils.Util
@@ -20,7 +21,7 @@ abstract class BaseViewModelFragment<VM: BaseViewModel<*>>: BaseFragment() {
     abstract fun initDataObserver()
 
 
-    override fun onInitView() {
+    override fun onInitView(layout: View) {
         // 初始化ViewModel对象
         mViewModel = ViewModelProvider(this).get(Util.getClass(this))
         // 初始化LiveData对象并绑定

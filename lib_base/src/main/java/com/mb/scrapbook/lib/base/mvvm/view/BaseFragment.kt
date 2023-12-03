@@ -23,7 +23,7 @@ abstract class BaseFragment: Fragment() {
     /**
      * 子类实现View初始化
      */
-    abstract fun onInitView()
+    abstract fun onInitView(layout: View)
 
 
     /**
@@ -53,7 +53,7 @@ abstract class BaseFragment: Fragment() {
         // 设置status bar样式
         setupStatusBarStyle()
         // 初始化布局
-        onInitView()
+        onInitView(view)
         // 初始化数据
         onInitData()
     }

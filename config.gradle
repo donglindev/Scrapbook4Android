@@ -1,9 +1,9 @@
 ext {
     android = [
-        compileSdkVersion: 30,
-        buildToolsVersion: "30.0.3",
+        compileSdkVersion: 34,
+        buildToolsVersion: "34.0.0",
         minSdkVersion    : 21,
-        targetSdkVersion : 30,
+        targetSdkVersion : 34,
         versionCode      : 1,
         versionName      : "1.0",
     ]
@@ -18,7 +18,7 @@ ext {
     okhttp_version                  = '3.14.9'
     okio_version                    = '2.10.0'
     retrofit_version                = '2.9.0'
-    lifecycle_version               = '2.2.0'
+    lifecycle_version               = '2.6.2'
     constraintlayout_versoin        = '2.0.4'
     recyclerview_version            = '1.2.1'
     recyclermargin_version          = '1.2.1'
@@ -31,12 +31,12 @@ ext {
     utilcodex_version               = '1.30.6'
 
     // Kotlin coroutines
-    coroutines_core                 = '1.9.0'
-    coroutines_android              = '1.9.0'
+    coroutines_core                 = '1.7.3'
+    coroutines_android              = '1.7.3'
 
     dependencies = [
         "kotlin"                     : "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version",
-        "ktx-core"                   : "androidx.core:core-ktx:1.9.0",
+        "ktx-core"                   : "androidx.core:core-ktx:1.12.0",
         "coroutines-core"            : "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines_core",
         "coroutines-android"         : "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_android",
         "appcompat"                  : "androidx.appcompat:appcompat:1.6.1",
@@ -57,12 +57,14 @@ ext {
         "retrofit-converter-gson"    : "com.squareup.retrofit2:converter-gson:${retrofit_version}",
         "okhttp3"                    : "com.squareup.okhttp3:okhttp:${okhttp_version}",
         "okhttp3-logging-interceptor": "com.squareup.okhttp3:logging-interceptor:${okhttp_version}",
-        "lifecycle"                  : "androidx.lifecycle:lifecycle-extensions:$lifecycle_version",
+        "lifecycle-viewmodel-compose": "androidx.lifecycle:lifecycle-viewmodel-compose:$lifecycle_version",
         "lifecycle-viewmodel"        : "androidx.lifecycle:lifecycle-viewmodel:$lifecycle_version",
         "lifecycler-livedata"        : "androidx.lifecycle:lifecycle-livedata:$lifecycle_version",
         "lifecycle-viewmodel-ktx"    : "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version",
         "lifecycle-runtime-ktx"      : "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycle_version",
         "lifecycle-livedata-ktx"     : "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version",
+        "lifecycle-runtime-compose"  : "androidx.lifecycle:lifecycle-runtime-compose:$lifecycle_version",
+        "lifecycle-viewmodel-savedstate": "androidx.lifecycle:lifecycle-viewmodel-savedstate:$lifecycle_version",
     ]
 
     processor = [

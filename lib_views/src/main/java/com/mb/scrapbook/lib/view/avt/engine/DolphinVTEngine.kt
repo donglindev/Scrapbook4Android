@@ -133,7 +133,7 @@ class DolphinVTEngine() : ViewTreeEngine<String>() {
     /**
      * 根据节点属性(JsonAttr)创建抽象组件树节点的属性(ViewAttr)对象
      */
-    private fun makeViewAttr(attr: JsonAttr): ViewAttr = attr?.let { json ->
+    private fun makeViewAttr(attr: JsonAttr): ViewAttr = attr.let { json ->
         /**
          * 根据布局类型(layoutType)和楼层ID(floorId)两个属性确定是否是ViewGroupAttr对象
          */

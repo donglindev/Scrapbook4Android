@@ -1,7 +1,7 @@
 apply from: 'config.gradle'
 
 buildscript {
-    ext.kotlin_version = "1.9.0"
+    ext.kotlin_version = "1.9.21"
     repositories {
         maven { url 'https://maven.aliyun.com/repository/public/'}
         maven { url 'https://maven.aliyun.com/repository/google/'}
@@ -11,6 +11,7 @@ buildscript {
         maven { url 'https://repo.huaweicloud.com/repository/maven' }
         maven { url 'https://jitpack.io' }
         mavenCentral()
+        jcenter()
         google()
     }
     dependencies {
@@ -29,6 +30,7 @@ allprojects {
         maven { url 'https://repo.huaweicloud.com/repository/maven' }
         maven { url 'https://jitpack.io' }
         mavenCentral()
+        jcenter()
         google()
     }
 }

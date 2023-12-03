@@ -134,7 +134,7 @@ open class DistanceIndicator(context: Context, set: AttributeSet) : AppCompatTex
     /**
      * 绘制指示器
      */
-    override fun onDraw(canvas: Canvas?) {
+    override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
         // 绘制指示器总进度条
         drawIndicatorBackground(canvas)

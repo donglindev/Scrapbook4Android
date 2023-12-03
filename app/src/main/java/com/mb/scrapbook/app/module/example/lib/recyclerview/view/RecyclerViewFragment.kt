@@ -1,6 +1,8 @@
 package com.mb.scrapbook.app.module.example.lib.recyclerview.view
 
 import android.view.LayoutInflater
+import android.view.View
+import android.widget.LinearLayout
 import androidx.core.view.get
 import androidx.lifecycle.lifecycleScope
 import com.mb.scrapbook.app.R
@@ -10,7 +12,6 @@ import com.mb.scrapbook.app.module.example.lib.recyclerview.viewmode.RVFViewMode
 import com.mb.scrapbook.lib.base.mvvm.view.BaseViewModelFragment
 import com.mb.scrapbook.lib.view.gridview.TopicTabletView
 import com.mb.scrapbook.lib.view.model.ImageTextData
-import kotlinx.android.synthetic.main.layout_channel.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -23,8 +24,18 @@ import kotlinx.coroutines.withContext
  */
 class RecyclerViewFragment: BaseViewModelFragment<RVFViewModel>() {
 
+    /** 容器组件 */
+    private lateinit var layoutContainer: LinearLayout
+
     // 设置布局文件
     override fun getLayoutId(): Int = R.layout.layout_channel
+
+    /** 初始化组件 */
+    override fun onInitView(layout: View) {
+        super.onInitView(layout)
+        // 初始化组件
+        layoutContainer = layout.findViewById(R.id.layoutContainer)
+    }
 
     /**
      * 监听LiveData数据
