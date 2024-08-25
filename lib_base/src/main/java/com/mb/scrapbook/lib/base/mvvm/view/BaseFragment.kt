@@ -19,25 +19,21 @@ abstract class BaseFragment: Fragment() {
      */
     abstract fun getLayoutId(): Int
 
-
     /**
      * 子类实现View初始化
      */
     abstract fun onInitView(layout: View)
-
 
     /**
      * 子类实现数据初始化
      */
     abstract fun onInitData()
 
-
     /**
      * 设置status bar样式
      */
     protected open fun setupStatusBarStyle() {
     }
-
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -46,7 +42,6 @@ abstract class BaseFragment: Fragment() {
     ): View? {
         return inflater.inflate(getLayoutId(), container, false)
     }
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

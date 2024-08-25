@@ -18,14 +18,12 @@ class ExampleActivity: BaseViewModelActivity<ExampleViewModel>() {
     /** Current display fragment */
     private var fragmentDisplay: Fragment? = null
 
+    /** main recycler list */
+    private var mMainList: RecyclerView? = null
+    private var mFragmentContainer: FrameLayout? = null
+
     /** RecyclerView adapter */
     private lateinit var adapterExample: ExampleItemAdapter
-
-    /** RV组件 */
-    private val rvList by lazy { findViewById<RecyclerView>(R.id.rvList) }
-
-    /** 容器组件 */
-    private val layoutContainer by lazy { findViewById<FrameLayout>(R.id.layoutContainer) }
 
     companion object {
         const val TAG = "ExampleActivity"
@@ -39,6 +37,9 @@ class ExampleActivity: BaseViewModelActivity<ExampleViewModel>() {
      */
     override fun onInitView() {
         super.onInitView()
+        // 初始化fragment容器
+        mFragmentContainer = findViewById(R.id.layoutContainer)
+
         // 设置RecyclerView相关属性
         val mgrLinear = LinearLayoutManager(this)
         mgrLinear.orientation = LinearLayoutManager.VERTICAL
@@ -48,11 +49,11 @@ class ExampleActivity: BaseViewModelActivity<ExampleViewModel>() {
         val spaceSize: Int = SizeUtils.dp2px(2.5f)
         val space = LayoutMarginDecoration(spaceCount, spaceSize)
 
-        rvList.adapter = adapterExample
-        rvList.layoutManager = mgrLinear
-        rvList.addItemDecoration(space)
+        mMainList = findViewById(R.id.rvList)
+        mMainList?.adapter = adapterExample
+        mMainList?.layoutManager = mgrLinear
+        mMainList?.addItemDecoration(space)
     }
-
 
     // 监听LiveData数据
     override fun initDataObserver() {
@@ -75,7 +76,6 @@ class ExampleActivity: BaseViewModelActivity<ExampleViewModel>() {
         }
     }
 
-
     /**
      * 初始化数据
      */
@@ -83,7 +83,6 @@ class ExampleActivity: BaseViewModelActivity<ExampleViewModel>() {
         // 请求首页数据
         mViewModel.loadMainList()
     }
-
 
     override fun onBackPressed() {
         /**
@@ -95,41 +94,39 @@ class ExampleActivity: BaseViewModelActivity<ExampleViewModel>() {
         super.onBackPressed()
     }
 
-
     /**
      * 更新Fragment显示状态
      */
     private fun onUpdateExampleContainer(data: ExampleItemData, display: Boolean) {
-        supportFragmentManager?.let { mgr ->
+        supportFragmentManager.let { mgr ->
             val transaction = mgr.beginTransaction()
             // if 'fragmentDisplay' isn't null, then anyway remove current display fragment
             fragmentDisplay?.let { fragment -> transaction.remove(fragment) }
 
             if (display) {
                 // show list and hide fragment
-                layoutContainer.visibility = View.VISIBLE
-                rvList.visibility = View.GONE
+                mFragmentContainer?.visibility = View.VISIBLE
+                mMainList?.visibility = View.GONE
                 data.fragment?.let { fragment ->
                     fragmentDisplay = fragment
                     transaction.add(R.id.layoutContainer, fragment)
                 }
             } else {
                 // show list and hide fragment
-                layoutContainer.visibility = View.GONE
-                rvList.visibility = View.VISIBLE
+                mFragmentContainer?.visibility = View.GONE
+                mMainList?.visibility = View.VISIBLE
                 fragmentDisplay = null
             }
             transaction.commit()
         }
     }
 
-
     /**
      * 更新RecyclerView数据
      */
     private fun onUpdateRecyclerViewData(data: MutableList<ExampleItemData>) {
         Log.d(TAG, "on update recycler view data. ${data.size}")
-        adapterExample?.let {
+        adapterExample.let {
             it.data = data
             it.notifyDataSetChanged()
         }

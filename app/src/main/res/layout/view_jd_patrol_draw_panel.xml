@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.mb.scrapbook.app.module.example.lib.recyclerview.view.JDPatrolDrawPanelView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#66000000">
+
+    <TextView
+        android:id="@+id/textTips"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center_horizontal"
+        android:layout_marginBottom="15dp"
+        android:padding="20dp"
+        android:textSize="12sp"
+        android:textColor="@android:color/white"
+        android:fontFamily="sans-serif-medium"
+        android:text="@string/text_init_patrol_tips" />
+
+    <ImageView
+        android:id="@+id/imageLoading"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:scaleType="centerInside"
+        android:layout_gravity="center"
+        android:src="@mipmap/icon_loading"
+        android:visibility="gone"
+        android:contentDescription="@null" />
+
+</com.mb.scrapbook.app.module.example.lib.recyclerview.view.JDPatrolDrawPanelView>

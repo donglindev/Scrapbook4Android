@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <!-- 背景填充 -->
+    <solid android:color="#EEEEEE" />
+    <!-- 边框样式 -->
+    <stroke android:width="2dp" android:color="@color/purple_500"
+        android:dashWidth="20dp" android:dashGap="10dp" />
+    <!-- 圆角样式 -->
+    <corners android:radius="20dp" />
+</shape>

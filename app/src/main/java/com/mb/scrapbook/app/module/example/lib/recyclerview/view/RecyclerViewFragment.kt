@@ -101,7 +101,7 @@ class RecyclerViewFragment: BaseViewModelFragment<RVFViewModel>() {
     ) {
         lifecycleScope.launch(Dispatchers.Main) {
             for (index in 0 until layoutContainer.childCount) {
-                layoutContainer.get(index)?.let {
+                layoutContainer.get(index).let {
                     if (TYPE_STAGGERED_HORIZONTAL == (it.tag as? Int)) {
                         (it as? TopicTabletView)?.onUpdateData(dataTopicTablet)
                     }

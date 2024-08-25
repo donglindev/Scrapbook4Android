@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">Scrapbook</string>
+    <string name="jd_accessibility_service_label">JD巡检助手</string>
+    <string name="jd_accessibility_service_description">JD日常巡检助手，支持自动巡检、OCR识别等</string>
+    <string name="jd_patrol_service_text_collection">JD巡检服务助手正在收集页面元素...</string>
 </resources>

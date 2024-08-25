@@ -3,6 +3,7 @@
     package="com.mb.scrapbook.app">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
 
     <application
         android:name=".ScrapbookApplication"
@@ -11,16 +12,36 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Scrapbook4Android">
-        <activity android:name=".module.example.view.ExampleActivity"
-            android:exported="true"
-            android:launchMode="singleTask"
-            android:configChanges="orientation|keyboard|keyboardHidden|screenSize">
+        android:theme="@style/Theme.Scrapbook4Android"
+        android:hardwareAccelerated="true">
+        <activity android:name=".module.example.view.ExampleActivity" android:launchMode="singleTask"
+            android:configChanges="orientation|keyboard|keyboardHidden|screenSize" android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <!-- JD巡检设置页 -->
+        <activity android:name=".module.example.lib.recyclerview.view.JDPatrolSettingsActivity"
+            android:configChanges="orientation|keyboard|keyboardHidden|screenSize"
+            android:exported="true" android:launchMode="singleInstance">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+        <service android:name=".services.JDAccessibilityService" android:exported="true"
+            android:label="@string/jd_accessibility_service_label" android:process=":jd_patrol"
+            android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE">
+            <intent-filter>
+                <action android:name="android.accessibilityservice.AccessibilityService" />
+            </intent-filter>
+            <meta-data android:name="android.accessibilityservice"
+                android:resource="@xml/accessible_service_config_jd" />
+        </service>
+
     </application>
 
 </manifest>
