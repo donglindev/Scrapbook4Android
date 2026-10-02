@@ -1,0 +1,20 @@
+plugins {
+    id 'org.jetbrains.kotlin.jvm'
+}
+
+// 纯 JVM 内核:永不 import android.*(设计 R1)。
+// jvmTarget 1.8 与宿主模块对齐,供 lib_lottery(AGP)直接消费。
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+}
+
+tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach {
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+}
+
+dependencies {
+    testImplementation 'junit:junit:4.13.2'
+}
