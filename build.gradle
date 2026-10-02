@@ -15,6 +15,9 @@ buildscript {
         google()
     }
     dependencies {
+        // r8 8.x 必须声明在 AGP 之前:遮蔽 builder 7.4.2 内嵌的 r8 4.0.52
+        // (旧 r8 无法 dex compileSdk 34 平台下的 Kotlin 构件,崩溃于 com.android.tools.r8.kotlin.H)
+        classpath "com.android.tools:r8:8.1.56"
         classpath "com.android.tools.build:gradle:7.4.2"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
