@@ -81,6 +81,7 @@ class LlamaEngine private constructor(
     private external fun setImageMaxSliceNumsNative(n: Int)
     private external fun setMinicpmvVersionNative(version: Int)
     private external fun setEnableThinkingNative(enable: Boolean)
+    private external fun setTemperatureNative(temp: Float)
     private external fun getMinicpmvVersionNative(): Int
     private external fun prepare(): Int
     private external fun systemInfo(): String
@@ -205,6 +206,11 @@ class LlamaEngine private constructor(
             throw e
         }
     }.flowOn(llamaDispatcher)
+
+    /** D23 persona 温度阶梯(0.3/1.0/1.3):即时重建采样器,不重载模型。 */
+    suspend fun setTemperature(temp: Float) = withContext(llamaDispatcher) {
+        setTemperatureNative(temp)
+    }
 
     fun cancelGeneration() {
         _cancelGeneration = true

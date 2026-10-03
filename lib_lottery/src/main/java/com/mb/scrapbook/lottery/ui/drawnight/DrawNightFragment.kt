@@ -61,12 +61,13 @@ class DrawNightFragment : BaseFragment() {
         when (ui) {
             is DrawNightViewModel.Ui.Idle -> {
                 binding.drawnightPeriod.text = "已结算 ${ui.settledCount} 期"
-                binding.sectionIdle.text = "下一期:第 ${ui.nextPeriod} 期"
+                binding.sectionIdle.text = "下一期:第 ${ui.nextPeriod} 期\n${ui.note}"
                 binding.btnStartPicking.text = "第 ${ui.nextPeriod} 期 · 出票"
             }
             is DrawNightViewModel.Ui.Picking -> {
                 binding.pickingProgress.text = "${ui.index}/${ui.total} 出票中"
                 binding.pickingName.text = ui.name
+                binding.pickingStatus.text = ui.streamingText // D10 聚光灯流式理由
                 renderDoneTickets(ui.doneTickets)
             }
             is DrawNightViewModel.Ui.Locked -> {

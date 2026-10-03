@@ -44,6 +44,7 @@ constexpr int   BATCH_SIZE              = 2048;
 // top_p=1.0 effectively disable those filters, so sampling is pure
 // temperature-only as the model card recommends.
 constexpr float DEFAULT_SAMPLER_TEMP    = 0.7f;
+static float g_override_temp = -1.0f; // SSQ-Arena: persona 温度(D23), <0 = 默认
 
 static llama_model                      * g_model;
 static llama_context                    * g_context;
@@ -278,6 +279,16 @@ static common_sampler *new_sampler(float temp) {
 }
 
 extern "C"
+JNIEXPORT void JNICALL
+Java_com_mb_scrapbook_lottery_infer_LlamaEngine_setTemperatureNative(JNIEnv * /*env*/, jobject, jfloat temp) {
+    g_override_temp = temp;
+    if (g_sampler != nullptr) {
+        common_sampler_free(g_sampler);
+        g_sampler = new_sampler(temp);
+    }
+}
+
+extern "C"
 JNIEXPORT jint JNICALL
 Java_com_mb_scrapbook_lottery_infer_LlamaEngine_prepare(JNIEnv * /*env*/, jobject /*unused*/) {
     // MiniCPM-V-4.6 video understanding (up to 64 frames per turn) needs
@@ -296,7 +307,7 @@ Java_com_mb_scrapbook_lottery_infer_LlamaEngine_prepare(JNIEnv * /*env*/, jobjec
     g_n_ctx = n_ctx;
     g_batch = llama_batch_init(BATCH_SIZE, 0, 1);
     g_chat_templates = common_chat_templates_init(g_model, "");
-    g_sampler = new_sampler(DEFAULT_SAMPLER_TEMP);
+    g_sampler = new_sampler(g_override_temp > 0.0f ? g_override_temp : DEFAULT_SAMPLER_TEMP);
     return 0;
 }
 
