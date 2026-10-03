@@ -18,6 +18,7 @@ class SeasonStore(context: Context, private val scope: kotlinx.coroutines.Corout
     private val dir = File(context.filesDir, "seasons/S1").apply { mkdirs() }
     private val resultsFile = File(dir, "results.jsonl")
     private val drawsFile = File(dir, "draws.jsonl")
+    private val sideloadFile = File(dir, "sideload.csv")
     private val gson = Gson()
 
     val archive = mutableListOf<PeriodResult>()
@@ -25,10 +26,14 @@ class SeasonStore(context: Context, private val scope: kotlinx.coroutines.Corout
     var baseHistory: List<Draw> = emptyList()
         private set
 
-    /** 首次进入:读打包历史(classpath 单源)+ 已结算归档。 */
+    /** 首次进入:读侧载副本(若有,否则打包历史 classpath 单源)+ 已结算归档。 */
     suspend fun load(base: () -> List<Draw>) {
         withContext(Dispatchers.IO) {
             baseHistory = base()
+            if (sideloadFile.exists()) {
+                runCatching { baseHistory = SideloadGuard.parseCsv(sideloadFile.readText()) }
+                    .onFailure { sideloadFile.delete() } // 侧载副本损坏 → 回退打包源并清毒
+            }
             if (resultsFile.exists()) {
                 resultsFile.readLines().filter { it.isNotBlank() }.forEach { archive += PeriodResult.fromJson(it) }
             }
@@ -39,6 +44,22 @@ class SeasonStore(context: Context, private val scope: kotlinx.coroutines.Corout
                 }
             }
         }
+    }
+
+    /**
+     * 侧载刷新(D14):冲突告警 + 只追加新期;已结算期绝不回改。
+     * 侧载副本 = 现有 base + 新期(不含已结算 live 期,避免与 settled 重复)。
+     */
+    suspend fun importSideload(csv: String): SideloadGuard.Result {
+        val incoming = SideloadGuard.parseCsv(csv)
+        val settledPeriods = settledDraws.map { it.period }.toSet()
+        val merged = SideloadGuard.merge(history(), settledPeriods, incoming)
+        val newBasePeriods = merged.newPeriods.filter { it.period !in settledPeriods }
+        withContext(Dispatchers.IO) {
+            sideloadFile.writeText(SideloadGuard.toCsv(baseHistory + newBasePeriods))
+        }
+        baseHistory = baseHistory + newBasePeriods
+        return merged.copy(newPeriods = newBasePeriods)
     }
 
     /** 出票可见历史 = 打包历史 + 已结算 live 期(live-forward 向前延伸)。 */
