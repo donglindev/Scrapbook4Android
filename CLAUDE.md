@@ -16,3 +16,17 @@ Key routing rules:
 - Save progress → invoke /context-save
 - Resume context → invoke /context-restore
 - Author a backlog-ready spec/issue → invoke /spec
+
+## Agent skills
+
+### Issue tracker
+
+Issues are tracked as GitHub issues via the `gh` CLI. See `docs/agents/issue-tracker.md`.
+
+### Triage labels
+
+Default five triage labels kept as-is (`needs-triage`, `needs-info`, `ready-for-agent`, `ready-for-human`, `wontfix`). See `docs/agents/triage-labels.md`.
+
+### Domain docs
+
+Single-context: root `CONTEXT.md` + `docs/adr/` (created lazily). See `docs/agents/domain.md`.
