@@ -15,7 +15,8 @@ import java.io.File
  */
 class SeasonStore(context: Context, private val scope: kotlinx.coroutines.CoroutineScope) {
 
-    private val dir = File(context.filesDir, "seasons/S1").apply { mkdirs() }
+    /** 赛季目录(androidTest 清场用)。 */
+    internal val dir = File(context.filesDir, "seasons/S1").apply { mkdirs() }
     private val resultsFile = File(dir, "results.jsonl")
     private val drawsFile = File(dir, "draws.jsonl")
     private val sideloadFile = File(dir, "sideload.csv")

@@ -50,6 +50,7 @@ dependencies {
     support.each { k, v -> compileOnly v }
 
     testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'junit:junit:4.13.2' // assertThrows
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
 }
