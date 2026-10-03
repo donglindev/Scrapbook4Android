@@ -65,8 +65,13 @@ class SeasonStore(context: Context, private val scope: kotlinx.coroutines.Corout
     /** 出票可见历史 = 打包历史 + 已结算 live 期(live-forward 向前延伸)。 */
     fun history(): List<Draw> = baseHistory + settledDraws
 
+    /** 向导设定的赛季起始期(D7):首个未结算期的优先来源。 */
+    var startPeriodOverride: String? = null
+
     fun nextPeriod(): String {
-        val last = settledDraws.lastOrNull()?.period ?: baseHistory.lastOrNull()?.period ?: "00000"
+        settledDraws.lastOrNull()?.let { return "%05d".format(it.period.toInt() + 1) }
+        startPeriodOverride?.let { return it }
+        val last = baseHistory.lastOrNull()?.period ?: "00000"
         return "%05d".format(last.toInt() + 1)
     }
 

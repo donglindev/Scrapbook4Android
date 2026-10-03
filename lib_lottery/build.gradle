@@ -44,6 +44,9 @@ dependencies {
     api project(':lib_lottery_core')
     implementation project(':lib_base')
 
+    // D22:Preferences DataStore(局部声明,不动 config.gradle)
+    implementation 'androidx.datastore:datastore-preferences:1.1.1'
+
     support.each { k, v -> compileOnly v }
 
     testImplementation 'junit:junit:4.13.2'

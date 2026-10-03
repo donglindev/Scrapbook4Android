@@ -101,6 +101,7 @@ class DrawNightViewModel(app: Application) : AndroidViewModel(app) {
     init {
         viewModelScope.launch {
             store.load { DrawRepository().load() }
+            store.startPeriodOverride = com.mb.scrapbook.lottery.data.AppPrefs.seasonStart(getApplication())
             players = buildPlayers()
             _ui.value = Ui.Idle(store.nextPeriod(), store.settledDraws.size, rosterNote())
         }

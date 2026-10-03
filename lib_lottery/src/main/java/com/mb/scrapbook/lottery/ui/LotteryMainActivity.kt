@@ -3,6 +3,7 @@ package com.mb.scrapbook.lottery.ui
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import com.blankj.utilcode.util.BarUtils
 import com.mb.scrapbook.lib.base.mvvm.view.BaseActivity
 import com.mb.scrapbook.lottery.R
@@ -10,6 +11,7 @@ import com.mb.scrapbook.lottery.databinding.ActivityLotteryBinding
 import com.mb.scrapbook.lottery.ui.arena.ArenaFragment
 import com.mb.scrapbook.lottery.ui.drawnight.DrawNightFragment
 import com.mb.scrapbook.lottery.ui.ledger.LedgerFragment
+import kotlinx.coroutines.launch
 
 /**
  * 竞技场主 Activity(D21=A:放 lib_lottery,app manifest launcher 指向此处)。
@@ -39,6 +41,14 @@ class LotteryMainActivity : BaseActivity() {
         binding.lotteryNav.setOnNavigationItemSelectedListener { item ->
             switchTo(item.itemId)
             true
+        }
+        // D7=A:首次启动自动进入三步向导
+        lifecycleScope.launch {
+            if (!com.mb.scrapbook.lottery.data.AppPrefs.firstRunDone(this@LotteryMainActivity)) {
+                startActivity(
+                    android.content.Intent(this@LotteryMainActivity, com.mb.scrapbook.lottery.ui.wizard.WizardActivity::class.java)
+                )
+            }
         }
     }
 

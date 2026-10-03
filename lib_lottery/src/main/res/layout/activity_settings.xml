@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="赛季管理(D7)"
+            android:textColor="@color/lottery_text_primary"
+            android:textSize="22sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:text="侧载导入遵循 D14:冲突只告警,只追加新期,已结算账本不可变"
+            android:textColor="@color/lottery_text_secondary"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/row_sideload"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:background="@color/lottery_surface"
+            android:gravity="center_vertical"
+            android:paddingHorizontal="16dp"
+            android:text="导入历史 CSV(侧载刷新)"
+            android:textColor="@color/lottery_text_primary"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/row_models"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_marginTop="8dp"
+            android:background="@color/lottery_surface"
+            android:gravity="center_vertical"
+            android:paddingHorizontal="16dp"
+            android:text="模型管理(下载/校验)"
+            android:textColor="@color/lottery_text_primary"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/row_rebuild"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_marginTop="8dp"
+            android:background="@color/lottery_surface"
+            android:gravity="center_vertical"
+            android:paddingHorizontal="16dp"
+            android:text="重建赛季(清空 S1)"
+            android:textColor="@color/lottery_badge_worse"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/row_archive"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_marginTop="8dp"
+            android:background="@color/lottery_surface"
+            android:gravity="center_vertical"
+            android:paddingHorizontal="16dp"
+            android:text="归档当前赛季"
+            android:textColor="@color/lottery_text_primary"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/row_switch"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_marginTop="8dp"
+            android:background="@color/lottery_surface"
+            android:gravity="center_vertical"
+            android:paddingHorizontal="16dp"
+            android:text="赛季切换(单赛季 MVP,归档后经向导重开)"
+            android:textColor="@color/lottery_text_secondary"
+            android:textSize="16sp" />
+    </LinearLayout>
+</layout>
