@@ -1,0 +1,49 @@
+{
+  "slots": [
+    {
+      "id": "minicpm5-2b",
+      "displayName": "MiniCPM5-2B (Q4_K_M) · LLM 军师",
+      "minicpmvVersion": 0,
+      "files": [
+        {
+          "name": "MiniCPM5-2B-Q4_K_M.gguf",
+          "urls": [
+            "https://huggingface.co/openbmb/MiniCPM5-2B-GGUF/resolve/main/MiniCPM5-2B-Q4_K_M.gguf",
+            "https://hf-mirror.com/openbmb/MiniCPM5-2B-GGUF/resolve/main/MiniCPM5-2B-Q4_K_M.gguf",
+            "https://www.modelscope.cn/models/OpenBMB/MiniCPM5-2B-GGUF/resolve/master/MiniCPM5-2B-Q4_K_M.gguf"
+          ],
+          "sizeBytes": null,
+          "checksum": null
+        }
+      ]
+    },
+    {
+      "id": "minicpm-v-4.6",
+      "displayName": "MiniCPM-V-4.6 (Q4_K_M) · VLM 读图",
+      "minicpmvVersion": 46,
+      "files": [
+        {
+          "name": "MiniCPM-V-4_6-Q4_K_M.gguf",
+          "urls": [
+            "https://huggingface.co/openbmb/MiniCPM-V-4.6-gguf/resolve/main/MiniCPM-V-4_6-Q4_K_M.gguf",
+            "https://hf-mirror.com/openbmb/MiniCPM-V-4.6-gguf/resolve/main/MiniCPM-V-4_6-Q4_K_M.gguf",
+            "https://www.modelscope.cn/models/OpenBMB/MiniCPM-V-4.6-gguf/resolve/master/MiniCPM-V-4_6-Q4_K_M.gguf"
+          ],
+          "sizeBytes": null,
+          "checksum": { "algorithm": "MD5", "value": "fd778481dd56b6036dd8f9cf7c1519cf" }
+        },
+        {
+          "name": "mmproj-model-f16.gguf",
+          "urls": [
+            "https://huggingface.co/openbmb/MiniCPM-V-4.6-gguf/resolve/main/mmproj-model-f16.gguf",
+            "https://hf-mirror.com/openbmb/MiniCPM-V-4.6-gguf/resolve/main/mmproj-model-f16.gguf",
+            "https://www.modelscope.cn/models/OpenBMB/MiniCPM-V-4.6-gguf/resolve/master/mmproj-model-f16.gguf"
+          ],
+          "sizeBytes": null,
+          "checksum": { "algorithm": "MD5", "value": "54aea6e04d752f47309a48f12795a1a3" },
+          "isMmproj": true
+        }
+      ]
+    }
+  ]
+}
