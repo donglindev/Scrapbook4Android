@@ -46,6 +46,16 @@
                 android:minHeight="48dp"
                 android:text="@string/lottery_start_picking" />
 
+            <Button
+                android:id="@+id/btn_replay"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:background="@android:color/transparent"
+                android:minHeight="48dp"
+                android:text="重播历史期演示(D11,不入 live 账本)"
+                android:textColor="@color/lottery_text_secondary" />
+
             <!-- 出票态:聚光灯(D10=A,一次只演一位;LLM 流式在 T8 接入) -->
             <LinearLayout
                 android:id="@+id/section_picking"
@@ -169,6 +179,17 @@
                     android:enabled="false"
                     android:minHeight="48dp"
                     android:text="@string/lottery_entry_confirm" />
+
+                <Button
+                    android:id="@+id/btn_autofill_replay"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:background="@android:color/transparent"
+                    android:minHeight="48dp"
+                    android:text="填入真实历史开奖号(重播)"
+                    android:textColor="@color/lottery_text_secondary"
+                    android:visibility="gone" />
 
                 <Button
                     android:id="@+id/btn_clear_entry"

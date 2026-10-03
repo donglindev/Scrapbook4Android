@@ -14,6 +14,15 @@ object AppPrefs {
     private val KEY_FIRST_RUN = booleanPreferencesKey("first_run_done")
     private val KEY_SEASON_START = stringPreferencesKey("season_start")
     private val KEY_SEASON = stringPreferencesKey("active_season")
+    private val KEY_ASSUME_NOTICE = booleanPreferencesKey("assume_value_notice_shown")
+
+    /** 首次结算后弹一次「一/二等奖按假设值计」说明(D5)。 */
+    suspend fun assumeNoticeShown(context: Context): Boolean =
+        context.store.data.first()[KEY_ASSUME_NOTICE] ?: false
+
+    suspend fun markAssumeNoticeShown(context: Context) {
+        context.store.edit { it[KEY_ASSUME_NOTICE] = true }
+    }
 
     suspend fun firstRunDone(context: Context): Boolean =
         context.store.data.first()[KEY_FIRST_RUN] ?: false

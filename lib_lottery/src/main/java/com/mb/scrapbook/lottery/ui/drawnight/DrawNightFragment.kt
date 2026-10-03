@@ -13,6 +13,8 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.launch
 import com.mb.scrapbook.lib.base.mvvm.view.BaseFragment
 import com.mb.scrapbook.lottery.R
 import com.mb.scrapbook.lottery.core.domain.Verdict
@@ -36,6 +38,14 @@ class DrawNightFragment : BaseFragment() {
     override fun onInitView(layout: View) {
         binding = DataBindingUtil.bind(layout) ?: return
         binding.btnStartPicking.setOnClickListener { vm.startPeriod() }
+        binding.btnReplay.setOnClickListener { vm.startReplay() }
+        binding.btnAutofillReplay.setOnClickListener {
+            vm.replayDrawNumbers()?.let { (reds, blue) ->
+                entryFields().take(6).forEachIndexed { i, et -> et.setText(reds[i].toString()) }
+                binding.blueEntry.setText(blue.toString())
+                refreshEntryState()
+            }
+        }
         binding.btnConfirmEntry.setOnClickListener { onConfirmClicked() }
         binding.btnClearEntry.setOnClickListener { clearEntry() }
         entryFields().forEach { it.addTextChangedListener(object : TextWatcher {
@@ -71,13 +81,18 @@ class DrawNightFragment : BaseFragment() {
                 renderDoneTickets(ui.doneTickets)
             }
             is DrawNightViewModel.Ui.Locked -> {
-                binding.drawnightPeriod.text = "第 ${ui.period} 期 · 全员锁定,等待录入"
+                binding.drawnightPeriod.text =
+                    (if (ui.replay) "重播 · " else "") + "第 ${ui.period} 期 · 全员锁定,等待录入"
                 binding.lockedTickets.text = ui.tickets.joinToString("\n") { (name, t) -> "$name:$t" }
+                binding.btnAutofillReplay.visibility = if (ui.replay) View.VISIBLE else View.GONE
                 refreshEntryState()
             }
             is DrawNightViewModel.Ui.Resulted -> {
-                binding.drawnightPeriod.text = "第 ${ui.period} 期 · 已结算(不可变)"
+                binding.drawnightPeriod.text =
+                    (if (ui.replay) "重播 · " else "") + "第 ${ui.period} 期 · 已结算" +
+                        (if (ui.replay) "(重播,不入账本)" else "(不可变)")
                 renderResultRows(ui)
+                maybeShowAssumeNotice()
             }
         }
     }
@@ -162,6 +177,20 @@ class DrawNightFragment : BaseFragment() {
     private fun clearEntry() {
         entryFields().forEach { it.setText("") }
         binding.entryError.text = ""
+    }
+
+    /** D5:首次结算弹一次「一/二等奖按假设值计」说明。 */
+    private fun maybeShowAssumeNotice() {
+        lifecycleScope.launch {
+            if (!com.mb.scrapbook.lottery.data.AppPrefs.assumeNoticeShown(requireContext())) {
+                com.mb.scrapbook.lottery.data.AppPrefs.markAssumeNoticeShown(requireContext())
+                AlertDialog.Builder(requireContext())
+                    .setTitle("关于奖金假设值")
+                    .setMessage("一/二等奖为浮动奖金,账本按假设值计入:一等奖 500 万、二等奖 15 万(显著标注)。其余奖级为官方固定值。")
+                    .setPositiveButton("明白", null)
+                    .show()
+            }
+        }
     }
 
     // ---- keep-screen-on(R11 状态矩阵) ----

@@ -79,8 +79,8 @@ class DrawNightViewModel(app: Application) : AndroidViewModel(app) {
             val doneTickets: List<Pair<String, String>>,
         ) : Ui()
 
-        data class Locked(val period: String, val tickets: List<Pair<String, String>>) : Ui()
-        data class Resulted(val period: String, val rows: List<ResultRow>) : Ui()
+        data class Locked(val period: String, val tickets: List<Pair<String, String>>, val replay: Boolean = false) : Ui()
+        data class Resulted(val period: String, val rows: List<ResultRow>, val replay: Boolean = false) : Ui()
     }
 
     data class ResultRow(
@@ -97,6 +97,42 @@ class DrawNightViewModel(app: Application) : AndroidViewModel(app) {
 
     private var runner: SeasonRunner? = null
     private var currentPeriod: String = ""
+
+    /** 重播模式(D11):演示历史期,不入 live 账本。 */
+    private var replayMode = false
+    private var replayDraw: Draw? = null
+    private var replayHistory: List<Draw> = emptyList()
+
+    /** 重播一个历史期(JVM 六选手,出票只见该期之前;结算不入账本)。 */
+    fun startReplay() {
+        if (_ui.value is Ui.Picking) return
+        viewModelScope.launch {
+            val base = store.baseHistory
+            if (base.size < 60) return@launch
+            val idx = base.size - 40
+            replayMode = true
+            currentPeriod = base[idx].period
+            replayDraw = base[idx]
+            replayHistory = base.subList(0, idx)
+            val runner = SeasonRunner(jvmPlayers.map { it.id }.toSet())
+            val seedBase = "$currentPeriod|replay".hashCode().toLong()
+            val done = mutableListOf<Pair<String, String>>()
+            for ((i, p) in jvmPlayers.withIndex()) {
+                _ui.value = Ui.Picking(i + 1, jvmPlayers.size, p.displayName, "思考中…", done.toList())
+                delay(400)
+                val plan = (p as Player.Jvm).strategy.pick(
+                    PickContext(currentPeriod, replayHistory, Random(seedBase * 31L + i))
+                )
+                runner.recordPick(p.id, currentPeriod, plan, pickAt = System.currentTimeMillis())
+                done += p.displayName to ticketText(plan)
+            }
+            this@DrawNightViewModel.runner = runner
+            _ui.value = Ui.Locked(currentPeriod, done, replay = true)
+        }
+    }
+
+    /** 重播模式:一键填入真实历史开奖号(演示便利,D11)。 */
+    fun replayDrawNumbers(): Pair<List<Int>, Int>? = replayDraw?.let { it.reds to it.blue }
 
     init {
         viewModelScope.launch {
@@ -220,6 +256,12 @@ class DrawNightViewModel(app: Application) : AndroidViewModel(app) {
         } catch (e: IllegalStateException) {
             return e.message ?: "结算失败"
         }
+        if (replayMode) {
+            // D11:重播结算不入 live 账本(水印标识,数据完整无「样本不足」)
+            replayMode = false
+            _ui.value = Ui.Resulted(currentPeriod, resultRows(results), replay = true)
+            return null
+        }
         store.append(draw, results)
         _ui.value = Ui.Resulted(currentPeriod, resultRows(results))
         refreshVerdicts()
@@ -227,6 +269,7 @@ class DrawNightViewModel(app: Application) : AndroidViewModel(app) {
     }
 
     fun nextPeriod() {
+        replayMode = false
         _ui.value = Ui.Idle(store.nextPeriod(), store.settledDraws.size, rosterNote())
     }
 
