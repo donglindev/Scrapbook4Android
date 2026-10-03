@@ -18,28 +18,36 @@ class NullDistribution(
 
     private val cache = HashMap<NullKey, DoubleArray>()
 
-    /** 排序后的 ROI 零分布。同键共享同一实例(C2)。 */
-    fun roi(history: List<Draw>, ticketsPerPeriod: Int): DoubleArray =
-        cache.getOrPut(NullKey(ticketsPerPeriod, history.size)) { compute(history, ticketsPerPeriod) }
+    /**
+     * 排序后的 ROI 零分布。同键共享同一实例(C2)。
+     * active: 每期是否实际投注(live 弃权结构,弃权期计 0 注 → 不投不计注,分母只含实际投入);
+     * null = 全部在场(JVM 回放,共享缓存键不变)。
+     */
+    fun roi(history: List<Draw>, ticketsPerPeriod: Int, active: List<Boolean>? = null): DoubleArray =
+        cache.getOrPut(NullKey(ticketsPerPeriod, history.size, active)) { compute(history, ticketsPerPeriod, active) }
 
-    private fun compute(history: List<Draw>, ticketsPerPeriod: Int): DoubleArray {
+    private fun compute(history: List<Draw>, ticketsPerPeriod: Int, active: List<Boolean>?): DoubleArray {
         require(history.isNotEmpty()) { "历史为空,无法构造零分布" }
         require(ticketsPerPeriod >= 1) { "每期注数至少 1: $ticketsPerPeriod" }
+        require(active == null || active.size == history.size) { "弃权掩码长度须等于期数" }
         val periods = history.size
-        val totalStake = ticketsPerPeriod.toLong() * 2L * periods // 2 = BetPlan.TICKET_PRICE_YUAN
+        val activeCount = active?.count { it } ?: periods
+        require(activeCount > 0) { "全部弃权,无有效投入" }
+        val totalStake = ticketsPerPeriod.toLong() * 2L * activeCount // 2 = BetPlan.TICKET_PRICE_YUAN
 
         // 每期预计算红球命中表,全部 run×ticket 复用
         val redPresent = Array(periods) { p -> BooleanArray(DRAW_RED_MAX + 1).also { b -> history[p].reds.forEach { b[it] = true } } }
         val blues = IntArray(periods) { history[it].blue }
 
         // 键派生随机流:不同键独立,同键确定性
-        val rng = Random(seed xor (ticketsPerPeriod.toLong() * 1_000_003L) xor periods.toLong())
+        val rng = Random(seed xor (ticketsPerPeriod.toLong() * 1_000_003L) xor periods.toLong() xor active.hashCode().toLong())
         val scratch = IntArray(6)
         val used = BooleanArray(DRAW_RED_MAX + 1)
         val rois = DoubleArray(runs)
         for (r in 0 until runs) {
             var winnings = 0L
             for (p in 0 until periods) {
+                if (active != null && !active[p]) continue
                 repeat(ticketsPerPeriod) {
                     winnings += randomTicketPrize(rng, redPresent[p], blues[p], scratch, used)
                 }
@@ -82,5 +90,5 @@ class NullDistribution(
     }
 }
 
-/** 共享缓存键(C2):live 弃权结构后续加入此键。 */
-private data class NullKey(val ticketsPerPeriod: Int, val periods: Int)
+/** 共享缓存键(C2):含 live 弃权结构(null = 全部在场,即 JVM 回放键)。 */
+private data class NullKey(val ticketsPerPeriod: Int, val periods: Int, val active: List<Boolean>?)

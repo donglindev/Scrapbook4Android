@@ -16,5 +16,7 @@ tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach {
 }
 
 dependencies {
+    // D19:Gson 序列化(PeriodResult 统一 schema;宿主已有 retrofit-converter-gson 同源)
+    implementation 'com.google.code.gson:gson:2.10.1'
     testImplementation 'junit:junit:4.13.2'
 }
