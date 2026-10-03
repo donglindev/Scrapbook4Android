@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="12dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/lottery_nav_ledger"
+            android:textColor="@color/lottery_text_primary"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:text="回放账本 · K=6 · 阈值 α/6≈0.0083 · *一/二等奖按假设值计"
+            android:textColor="@color/lottery_text_secondary"
+            android:textSize="12sp" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/ledger_list"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <!-- R9:免责声明条常驻底部 -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:background="@color/lottery_surface"
+            android:lineSpacingExtra="2dp"
+            android:padding="10dp"
+            android:text="@string/lottery_disclaimer"
+            android:textColor="@color/lottery_text_secondary"
+            android:textSize="12sp" />
+    </LinearLayout>
+</layout>

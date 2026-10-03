@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- R11 D14=A 暗色 token 最小集 -->
+<resources>
+    <color name="lottery_bg">#0E1116</color>
+    <color name="lottery_surface">#171C24</color>
+    <color name="lottery_text_primary">#ECEFF4</color>
+    <color name="lottery_text_secondary">#9AA4B2</color>
+    <color name="lottery_green">#3FB68B</color>
+    <color name="lottery_red">#E5484D</color>
+    <!-- 判决徽章四态(D13=A):ROI 绿/红与徽章语义两套色不混用 -->
+    <color name="lottery_badge_neutral">#8B93A1</color>
+    <color name="lottery_badge_worse">#FF6B4A</color>
+    <color name="lottery_badge_alert">#F5D90A</color>
+    <color name="lottery_badge_insufficient">#6B7280</color>
+    <color name="lottery_hit_segment">#4A90D9</color>
+</resources>

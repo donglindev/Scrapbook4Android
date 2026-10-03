@@ -12,15 +12,23 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Scrapbook4Android">
-        <activity android:name=".module.example.view.ExampleActivity"
+        <!-- D21=A:launcher 切到竞技场主 Activity(lib_lottery),锁竖屏(D16=A) -->
+        <activity android:name="com.mb.scrapbook.lottery.ui.LotteryMainActivity"
             android:exported="true"
             android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Lottery"
             android:configChanges="orientation|keyboard|keyboardHidden|screenSize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity android:name=".module.example.view.ExampleActivity"
+            android:exported="false"
+            android:launchMode="singleTask"
+            android:configChanges="orientation|keyboard|keyboardHidden|screenSize" />
     </application>
 
 </manifest>

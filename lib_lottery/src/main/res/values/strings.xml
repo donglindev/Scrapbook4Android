@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="lottery_nav_arena">竞技场</string>
+    <string name="lottery_nav_ledger">诚实账本</string>
+    <string name="lottery_nav_drawnight">开奖夜</string>
+
+    <string name="lottery_replay_skeleton">回放计算中… 3490 期 × 6 位 JVM 选手(首次约需数分钟)</string>
+    <string name="lottery_disclaimer">本工具不预测开奖,不构成投资建议。每期独立随机,任何算法不能提高中奖概率或期望收益;一/二等奖按假设值(500万/15万)计入。</string>
+    <string name="lottery_badge_neutral">✕ 与随机无差异</string>
+    <string name="lottery_badge_worse">▼ 显著更差</string>
+    <string name="lottery_badge_better">⚠ 数据警报:显著更好</string>
+    <string name="lottery_badge_insufficient">… 样本不足</string>
+    <string name="lottery_thinking">思考中…</string>
+    <string name="lottery_entry_hint">录入开奖号(结算前可清空重录,结算后不可变)</string>
+    <string name="lottery_entry_confirm">回显确认并结算</string>
+    <string name="lottery_entry_clear">清空重录</string>
+    <string name="lottery_next_period">进入下一期</string>
+    <string name="lottery_start_picking">本期限时出票</string>
+</resources>

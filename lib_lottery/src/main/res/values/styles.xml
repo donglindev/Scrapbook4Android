@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- R11 D14=A:暗色全局;TD3 打磨期升级为正式设计系统(TODOS.md) -->
+    <style name="Theme.Lottery" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:windowBackground">@color/lottery_bg</item>
+        <item name="android:statusBarColor">@color/lottery_bg</item>
+        <item name="android:textColorPrimary">@color/lottery_text_primary</item>
+        <item name="colorAccent">@color/lottery_green</item>
+        <item name="android:colorBackground">@color/lottery_bg</item>
+    </style>
+</resources>
