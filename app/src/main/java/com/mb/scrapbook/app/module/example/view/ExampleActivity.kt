@@ -130,7 +130,7 @@ class ExampleActivity: BaseViewModelActivity<ExampleViewModel>() {
     private fun onUpdateRecyclerViewData(data: MutableList<ExampleItemData>) {
         Log.d(TAG, "on update recycler view data. ${data.size}")
         adapterExample?.let {
-            it.data = data
+            it.setList(data)
             it.notifyDataSetChanged()
         }
     }

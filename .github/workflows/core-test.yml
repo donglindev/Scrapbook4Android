@@ -10,6 +10,5 @@ jobs:
       - uses: actions/setup-java@v4
         with:
           distribution: temurin
-          java-version: '11'
-      # gradle.properties 钉死了本机 org.gradle.java.home(§10 遗留);CI 用环境 JDK 覆盖。开源复现同题。
-      - run: ./gradlew :lib_lottery_core:test -Dorg.gradle.java.home=$JAVA_HOME
+          java-version: '21'
+      - run: ./gradlew :lib_lottery_core:test

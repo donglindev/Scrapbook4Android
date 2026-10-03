@@ -8,20 +8,20 @@ def support = rootProject.ext.dependencies
 
 // Android 壳(设计 R1/R7,D15=A View+DataBinding 不引 Compose;D21=A 竞技场主 Activity 在本模块)
 android {
-    compileSdkVersion rootAndroid.compileSdkVersion
-    buildToolsVersion rootAndroid.buildToolsVersion
+    namespace 'com.mb.scrapbook.lottery'
+    compileSdk rootAndroid.compileSdkVersion
 
     defaultConfig {
-        minSdkVersion rootAndroid.minSdkVersion
-        targetSdkVersion rootAndroid.targetSdkVersion
+        minSdk rootAndroid.minSdkVersion
+        targetSdk rootAndroid.targetSdkVersion
         versionCode rootAndroid.versionCode
         versionName rootAndroid.versionName
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
-    dataBinding {
-        enabled = true
+    buildFeatures {
+        dataBinding true
     }
 
     buildTypes {

@@ -7,20 +7,20 @@ def rootAndroid = rootProject.ext.android
 def support = rootProject.ext.dependencies
 
 android {
-    compileSdkVersion rootAndroid.compileSdkVersion
-    buildToolsVersion rootAndroid.buildToolsVersion
+    namespace 'com.mb.scrapbook.lib.base'
+    compileSdk rootAndroid.compileSdkVersion
 
     defaultConfig {
-        minSdkVersion rootAndroid.minSdkVersion
-        targetSdkVersion rootAndroid.targetSdkVersion
+        minSdk rootAndroid.minSdkVersion
+        targetSdk rootAndroid.targetSdkVersion
         versionCode rootAndroid.versionCode
         versionName rootAndroid.versionName
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
     }
-    dataBinding {
-        enabled = true
+    buildFeatures {
+        dataBinding true
     }
 
     buildTypes {

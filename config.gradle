@@ -1,9 +1,9 @@
 ext {
     android = [
-        compileSdkVersion: 34,
-        buildToolsVersion: "34.0.0",
-        minSdkVersion    : 21,
-        targetSdkVersion : 34,
+        // 决策 #3:minSdk 26 / compile+target 36(组合 A)
+        compileSdkVersion: 36,
+        minSdkVersion    : 26,
+        targetSdkVersion : 36,
         versionCode      : 1,
         versionName      : "1.0",
     ]
